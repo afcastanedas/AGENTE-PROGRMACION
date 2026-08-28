@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  Este <meta name="viewport"> es OBLIGATORIO para que las media queries
+  funcionen bien en celulares. Sin esto, el navegador móvil simula un
+  ancho de escritorio (~980px) y tus breakpoints nunca se disparan como
+  esperas.
+-->
+<title>Carta responsive</title>
+
+<style>
+
+  /* ==========================================================================
+     PASO 0 — reset mínimo
+     ========================================================================== */
+  * {
+    box-sizing: border-box; /* padding y border ya no suman al width/height */
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #071427;
+    color: #fff4d6;
+    font-family: system-ui, sans-serif;
+    padding: 32px 16px;
+  }
+
+
+  /* ==========================================================================
+     PASO 1 — MOBILE FIRST (el bloque sin media query)
+     ==========================================================================
+     Esta es la filosofía "mobile-first": escribes el CSS pensando primero
+     en la pantalla más chica, y luego usas media queries con
+     "min-width" para ir agregando/cambiando reglas a medida que la
+     pantalla crece.
+
+     ¿Por qué min-width y no max-width?
+     - min-width: "a partir de este ancho, aplica esto" -> vas sumando
+       complejidad hacia arriba. Es el enfoque recomendado hoy en día.
+     - max-width: "hasta este ancho, aplica esto" -> lo usarías si
+       prefieres partir del diseño de escritorio y achicarlo
+       ("desktop-first"). Es válido, pero menos común en proyectos nuevos.
+
+     Este bloque de abajo es lo que corre SIEMPRE, en cualquier tamaño de
+     pantalla, salvo que una media query más abajo lo sobrescriba.
+     ========================================================================== */
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 3.1fr 0.9fr;
+    grid-template-rows: 0.5fr 2fr 1fr 1fr 0.5fr;
+    gap: 0px 0px;
+
+    /* Dato importante sobre "fr":
+       "fr" reparte el espacio DISPONIBLE dentro del contenedor. Si el
+       contenedor no tiene una altura de referencia (por ejemplo, si no le
+       das min-height y no tiene contenido que lo empuje), el navegador no
+       sabe cuánto vale "una parte" y las filas pueden colapsar a 0px.
+       Por eso fijamos un min-height acá: */
+    min-height: 560px;
+    max-width: 380px;
+    margin: 0 auto;
+
+    background: #0f2544;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 0 40px rgba(70, 150, 255, 0.35), 0 0 80px rgba(255, 209, 46, 0.15);
+
+    grid-template-areas:
+      "header header header"
+      ".      image  .     "
+      "description description ."
+      "powers powers powers"
+      "stars  stars  stars ";
+  }
+
+  /* grid-area conecta cada <div> con un nombre definido arriba en
+     grid-template-areas. Esto no cambia entre breakpoints, salvo que tú
+     quieras mover un elemento a un área con otro nombre. */
+  .header      { grid-area: header; }
+  .image       { grid-area: image; }
+  .description { grid-area: description; }
+  .powers      { grid-area: powers; }
+  .stars       { grid-area: stars; }
+
+  /* estilos visuales simples solo para que se vea algo en pantalla */
+  .header, .description, .powers, .stars {
+    background: rgba(255, 209, 46, 0.12);
+    border: 1px dashed rgba(255, 209, 46, 0.5);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #ffd12e;
+    text-shadow: 0 0 8px rgba(255, 209, 46, 0.7);
+    box-shadow: 0 0 16px rgba(255, 209, 46, 0.25), inset 0 0 12px rgba(255, 209, 46, 0.08);
+  }
+
+  .image {
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+
+  /* ==========================================================================
+     PASO 2 — tu primer breakpoint
+     ==========================================================================
+     Sintaxis básica de una media query:
+
+       @media (condición) {
+         selector { propiedades }
+       }
+
+     "(min-width: 700px)" se lee: "cuando el ancho del VIEWPORT (la
+     ventana del navegador, no el de un div) sea de 700px o más".
+
+     Todo lo que escribas AQUÍ ADENTRO solo se aplica si esa condición es
+     verdadera en ese momento. El navegador la re-evalúa constantemente:
+     si redimensionas la ventana en vivo, el CSS entra y sale en tiempo real.
+
+     Importante: dentro de una media query puedes escribir CUALQUIER
+     selector, no solo .container. Aquí solo cambiamos las propiedades del
+     grid, pero podrías cambiar tipografía, ocultar elementos (display:none),
+     reordenar con "order", etc.
+     ========================================================================== */
+  @media (min-width: 700px) {
+
+    .container {
+      max-width: 760px;
+      min-height: 460px; /* misma razón que arriba: fr necesita un alto base */
+      padding: 16px;
+
+      /* Puedes repetir las mismas propiedades que en el bloque base y
+         el navegador las SOBRESCRIBE (la media query gana porque viene
+         después en el orden del archivo, no por ser "más específica"). */
+      grid-template-columns: 1fr 3.1fr 0.9fr;
+      grid-template-rows: 0.5fr 2fr 1fr 1fr 0.5fr;
+      gap: 0px 0px;
+
+      grid-template-areas:
+        "image       image  image"
+        "description .      .    "
+        ".           powers stars"
+        ".           header .    "
+        ".           .      .    ";
+    }
+  }
+
+
+  /* ==========================================================================
+     PASO 3 — un segundo breakpoint (opcional, para pantallas grandes)
+     ==========================================================================
+     Puedes encadenar tantas media queries como necesites. Cada una
+     representa un "punto de quiebre" (breakpoint) donde el diseño ya no
+     se ve bien y necesita ajustarse.
+
+     Convención común de breakpoints (no son reglas fijas, son
+     referencias que usa mucha gente):
+       ~480px  -> celulares grandes / phablets
+       ~768px  -> tablets
+       ~1024px -> laptops pequeñas
+       ~1280px -> escritorio
+
+     Aquí, en vez de inventar un breakpoint nuevo de la nada, elegimos
+     1100px porque es donde el diseño empieza a verse "estirado" con
+     tanto espacio vacío alrededor -> el breakpoint debería nacer de
+     cuándo se ve mal tu diseño, no de un número mágico de una lista.
+     ========================================================================== */
+  @media (min-width: 1100px) {
+    .container {
+      max-width: 920px;
+      min-height: 540px;
+      padding: 22px;
+    }
+  }
+
+
+  /* ==========================================================================
+     EXTRA — otras condiciones útiles de media query que vale la pena conocer
+     ========================================================================== */
+
+  /* Combinar condiciones con "and": aplica solo en un RANGO de anchos */
+  @media (min-width: 700px) and (max-width: 1099px) {
+    /* esto solo corre "entre" mobile y el breakpoint grande */
+  }
+
+  /* Detectar orientación del dispositivo */
+  @media (orientation: landscape) {
+    /* pantalla más ancha que alta (celular acostado, por ejemplo) */
+  }
+
+  /* Respetar si el usuario pidió menos animaciones en su sistema */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  /* Detectar tema oscuro del sistema operativo */
+  @media (prefers-color-scheme: dark) {
+    /* aquí redefinirías variables de color, por ejemplo */
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">[Tu nombre]</div>
+    <div class="image"><img src="foto.png" alt="[Tu foto o imagen de referencia]"></div>
+    <div class="description">[Tu rol / profesión y una frase corta sobre lo que haces]</div>
+    <div class="powers">[Habilidad 1] · [Habilidad 2] · [Habilidad 3]</div>
+    <div class="stars">★★★★☆</div>
+  </div>
+
+</body>
+</html>
