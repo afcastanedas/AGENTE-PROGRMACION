@@ -15,3 +15,8 @@ que nunca definí.
 Me costó organizar las referencias visuales por tema en vez de por sitio de origen. Al principio
 quería agruparlas por dónde las encontré, pero agruparlas por lo que inspiran (color, tipografía,
 layout) tiene más sentido para el proyecto.
+
+## 2026-09-03
+
+Clase de interacción CSS/JS (grid + `addEventListener`). Todavía no tengo mucha experiencia en esto —
+sesión de práctica agregando botones y listeners de click sobre el ejercicio de Grid de la semana 03.
