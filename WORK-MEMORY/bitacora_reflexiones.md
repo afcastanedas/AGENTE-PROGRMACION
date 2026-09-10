@@ -20,3 +20,8 @@ layout) tiene más sentido para el proyecto.
 
 Clase de interacción CSS/JS (grid + `addEventListener`). Todavía no tengo mucha experiencia en esto —
 sesión de práctica agregando botones y listeners de click sobre el ejercicio de Grid de la semana 03.
+
+## 2026-09-04
+
+Practiqué el manejo de media queries — tanto en CSS (`@media`) como en JS (`matchMedia`) para
+ocultar/mostrar una caja del grid según el ancho de pantalla. Afiancé un poco estos conocimientos.

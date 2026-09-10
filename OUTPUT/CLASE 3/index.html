@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .title-section {
+      background-color: #4a2c17;
+      color: #f2e6d5;
+    }
+
+    .title-section h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .image-section {
+      background-color: #d9c2a3;
+    }
+
+    .image-section img {
+      max-width: 100%;
+      width: 500px;
+      border-radius: 8px;
+    }
+
+    .description-section {
+      background-color: #6b8e4e;
+      color: #f2e6d5;
+    }
+
+    .description-section p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .ads {
+      display: none;
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: #c9a15a;
+      color: #4a2c17;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <section class="title-section">
+    <h1 id="titulo">Título de la Landing Page</h1>
+  </section>
+
+  <section class="image-section">
+    <img id="mainImage" src="INPUT/img1.avif" alt="Imagen del proyecto">
+  </section>
+
+  <section class="description-section">
+    <p id="descripcion">Aquí va la descripción del proyecto — cuenta de qué se trata, qué problema resuelve o qué inspiración tiene detrás.</p>
+    <div id="ads" class="ads">Espacio publicitario (solo visible en modo Desktop)</div>
+  </section>
+
+  <script>
+    const titulo = document.getElementById("titulo");
+    const descripcion = document.getElementById("descripcion");
+    const ads = document.getElementById("ads");
+    const mainImage = document.getElementById("mainImage");
+
+    function resize() {
+      if (window.innerWidth >= 1024) {
+        ads.style.display = "block";
+        titulo.textContent = "Árbol";
+        descripcion.textContent = "Los árboles son el destino final de la semilla: una estructura que crece durante años, sostiene ecosistemas enteros y transforma el paisaje que la rodea.";
+        mainImage.src = "INPUT/img3.png";
+      } else if (window.innerWidth >= 768) {
+        ads.style.display = "none";
+        titulo.textContent = "Germinación";
+        descripcion.textContent = "Cuando la semilla germina, emergen la raíz y el primer brote — el momento en que la vida latente se activa y comienza a abrirse paso hacia la superficie.";
+        mainImage.src = "INPUT/img2.avif";
+      } else {
+        ads.style.display = "none";
+        titulo.textContent = "Semilla";
+        descripcion.textContent = "Toda planta comienza como una semilla: una pequeña cápsula que guarda en su interior la información necesaria para dar origen a nueva vida.";
+        mainImage.src = "INPUT/img1.avif";
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+  </script>
+</body>
+</html>
