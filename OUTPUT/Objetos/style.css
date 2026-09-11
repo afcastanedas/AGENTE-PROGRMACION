@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  background: repeating-linear-gradient(
+    45deg,
+    #b30000,
+    #b30000 40px,
+    #c8102e 40px,
+    #c8102e 80px
+  );
+  color: #222;
+}
+
+header {
+  padding: 1rem 2rem;
+  background: #111;
+  color: #ffde00;
+  border-bottom: 6px solid #ffde00;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#dark-mode-toggle {
+  background: #ffde00;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+body.dark-mode {
+  background: #1a1a1a;
+}
+
+body.dark-mode .card {
+  background: #2a2a2a;
+  border-color: #ffde00;
+}
+
+body.dark-mode .card::before {
+  color: #ffde00;
+  -webkit-text-stroke: 2px #000;
+}
+
+body.dark-mode .card::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    #ffde00 0,
+    #ffde00 12px,
+    #000 12px,
+    #000 24px
+  );
+}
+
+body.dark-mode .card-name {
+  color: #aaa;
+}
+
+body.dark-mode .card-powers li {
+  background: #444;
+  color: #eee;
+}
+
+body.dark-mode .card-desc {
+  border-top-color: #666;
+}
+
+#galeria {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+/* las cartas de la galería son clickeables */
+#galeria .card {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+/* overlay oscuro que cubre toda la pantalla detrás del modal */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-items: center;
+  z-index: 10;
+}
+
+/* la carta dentro del modal se ve más grande que en la galería */
+#modal-content .card {
+  width: 380px !important;
+  transform: scale(1.1);
+}
+
+#modal-content {
+  position: relative;
+}
+
+#modal-close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  background: #ffde00;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto 1fr;
+  gap: 0.5rem;
+  width: 280px;
+  background: #c8102e;
+  border: 4px solid #ffde00;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "95";
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  font-size: 3rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #ffde00;
+  -webkit-text-stroke: 2px #111;
+  z-index: 2;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #ffde00 0,
+    #ffde00 12px,
+    #111 12px,
+    #111 24px
+  );
+}
+
+.card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 3px solid #ffde00;
+}
+
+.card-name {
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffde00;
+  text-shadow: 1px 1px 0 #111;
+}
+
+.card-age,
+.card-status {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.card-status {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-powers {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.4rem;
+  list-style: none;
+  justify-content: start;
+}
+
+.card-powers li {
+  background: #ffde00;
+  color: #111;
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card-desc {
+  font-size: 0.85rem;
+  color: #fff;
+  font-style: italic;
+  border-top: 2px dashed #ffde00;
+  padding-top: 0.5rem;
+}

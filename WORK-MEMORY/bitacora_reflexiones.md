@@ -25,3 +25,7 @@ sesión de práctica agregando botones y listeners de click sobre el ejercicio d
 
 Practiqué el manejo de media queries — tanto en CSS (`@media`) como en JS (`matchMedia`) para
 ocultar/mostrar una caja del grid según el ancho de pantalla. Afiancé un poco estos conocimientos.
+
+## 2026-09-10
+
+No logré entender del todo la temática de la clase.
