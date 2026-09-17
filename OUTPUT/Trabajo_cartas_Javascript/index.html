@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciclistas de Ruta</title>
+  <!-- estilos de la carta, la galería y el modo oscuro -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Ciclistas de Ruta</h1>
+    <!-- script.js le agrega el listener de click que hace el toggle -->
+    <button id="dark-mode-toggle">Modo oscuro</button>
+  </header>
+
+  <!-- contenedor vacío: script.js lo llena con las 8 cartas generadas dinámicamente a partir del array -->
+  <section id="galeria"></section>
+
+  <!-- modal oculto por defecto (clase "hidden" en style.css): se llena y se muestra al hacer click en una carta -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal-content"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

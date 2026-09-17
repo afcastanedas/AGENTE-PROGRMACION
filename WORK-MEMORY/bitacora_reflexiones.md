@@ -29,3 +29,41 @@ ocultar/mostrar una caja del grid según el ancho de pantalla. Afiancé un poco 
 ## 2026-09-10
 
 No logré entender del todo la temática de la clase.
+
+## 2026-09-11
+
+Me desenvolví mejor en esta sesión y pude experimentar con más confianza.
+
+## 2026-09-15
+
+Exploración de estilos para la entrega de las cartas de ciclistas (`Trabajo_cartas_Javascript`):
+
+- **Glassmorphism con blur**: primer estilo probado — fondo oscuro con gradiente radial, cartas
+  translúcidas con `backdrop-filter: blur()`. Se veía bien pero el blur generaba una capa opaca que
+  cubría toda la vista (bug real: `.hidden` con clase perdía contra `#modal-overlay` por
+  especificidad de ID vs clase — el modal nunca se ocultaba del todo). Se quitó el blur y se subió
+  la opacidad de los fondos para compensar.
+- **Fondo claro vs. oscuro**: probé cambiar el fondo general a un gradiente claro; al final se
+  volvió al fondo oscuro original porque combinaba mejor con las cartas y el botón de modo oscuro.
+- **Imágenes cuadradas**: cambié `height` fija por `aspect-ratio: 1/1` en `.card-img` para que todas
+  las fotos se recorten igual sin importar su proporción original.
+- **Efecto tilt 3D + brillo holográfico**: agregué un listener de `mousemove` que calcula la
+  posición del cursor sobre la carta y la inclina con `rotateX`/`rotateY`, más una capa `.card-shine`
+  con gradiente radial que sigue al mouse (`mix-blend-mode: overlay`) para simular el brillo tipo
+  carta holográfica.
+- **Animación de apertura del modal**: la carta seleccionada ahora entra con `perspective` +
+  `rotateY` + `scale` (`@keyframes zoomIn3d`) en vez de aparecer de golpe.
+
+Lo que me costó: entender por qué el modal no se ocultaba (especificidad CSS de ID vs. clase) —
+tuve que forzar `.hidden` con `!important` para que ganara.
+
+## 2026-09-16
+
+Cierre de la entrega de cartas de ciclistas. Ajustes finales: reduje el array a 8 objetos (dentro
+del rango de 8-10 pedido), agregué la propiedad booleana `veterano`, y migré las imágenes de rutas
+locales (`images/...`) a URLs de Imgur para que el proyecto funcione igual si se exporta a CodePen
+u otra plataforma externa — las rutas locales no existen fuera de mi máquina.
+
+Lo que aprendí: el método de mantener el HTML muy liviano (casi vacío, solo contenedores) y que
+toda la construcción real pase por JavaScript — el HTML es solo el "molde" donde se inyecta el
+contenido generado dinámicamente.
