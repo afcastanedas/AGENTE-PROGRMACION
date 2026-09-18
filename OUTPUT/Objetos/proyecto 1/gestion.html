@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Ciclistas</title>
+  <link rel="stylesheet" href="gestion.css">
+</head>
+<body>
+  <header>
+    <h1>Gestión de Ciclistas</h1>
+    <nav>
+      <a href="index.html">Galería</a>
+      <a href="gestion.html">Gestión</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar">
+      <ul>
+        <li><button type="button" class="sidebar-item active" data-action="list-all">Mostrar todos</button></li>
+        <li><button type="button" class="sidebar-item" data-action="read">Leer</button></li>
+        <li><button type="button" class="sidebar-item" data-action="create">Crear</button></li>
+        <li><button type="button" class="sidebar-item" data-action="update">Actualizar</button></li>
+        <li><button type="button" class="sidebar-item" data-action="delete">Eliminar</button></li>
+      </ul>
+    </aside>
+
+    <main id="gestion"></main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="storage.js"></script>
+  <script src="gestion.js"></script>
+</body>
+</html>

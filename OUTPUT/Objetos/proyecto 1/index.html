@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciclistas de Ruta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Ciclistas de Ruta</h1>
+    <nav>
+      <a href="index.html">Galería</a>
+      <a href="gestion.html">Gestión</a>
+    </nav>
+    <button id="dark-mode-toggle">Modo oscuro</button>
+  </header>
+
+  <!-- index.js llena este contenedor con una carta por cada objeto de data.js -->
+  <section id="galeria"></section>
+
+  <!-- data.js va primero: declara el array que index.js necesita -->
+  <script src="data.js"></script>
+  <script src="storage.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
