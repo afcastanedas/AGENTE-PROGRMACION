@@ -67,3 +67,7 @@ u otra plataforma externa — las rutas locales no existen fuera de mi máquina.
 Lo que aprendí: el método de mantener el HTML muy liviano (casi vacío, solo contenedores) y que
 toda la construcción real pase por JavaScript — el HTML es solo el "molde" donde se inyecta el
 contenido generado dinámicamente.
+
+## 2026-09-18
+
+Aprendí a usar un flujo de trabajo CRUD con éxito.
