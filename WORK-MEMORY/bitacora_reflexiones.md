@@ -71,3 +71,9 @@ contenido generado dinámicamente.
 ## 2026-09-18
 
 Aprendí a usar un flujo de trabajo CRUD con éxito.
+
+## 2026-09-24
+
+Aprendí la metodología CRUD y algunos tips de ciberseguridad (client-side vs. seguridad real,
+validar en el servidor no en el navegador). En los aspectos técnicos del código en sí sigo
+tenazmente perdido.
