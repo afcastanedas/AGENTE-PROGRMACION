@@ -16,6 +16,13 @@
     <button id="dark-mode-toggle">Modo oscuro</button>
   </header>
 
+  <!-- index.js escucha estos botones y vuelve a llamar renderizarGaleria con el array filtrado -->
+  <section id="filtros">
+    <button type="button" class="filter-btn active" data-filter="all">Todos</button>
+    <button type="button" class="filter-btn" data-filter="veteran">Veterano</button>
+    <button type="button" class="filter-btn" data-filter="rookie">Joven promesa</button>
+  </section>
+
   <!-- index.js llena este contenedor con una carta por cada objeto de data.js -->
   <section id="galeria"></section>
 

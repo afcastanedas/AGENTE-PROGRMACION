@@ -30,10 +30,33 @@ function createCard(cyclist) {
   return card;
 }
 
-cyclists.forEach((cyclist) => {
-  gallery.appendChild(createCard(cyclist));
-});
+// Recibe cualquier array de ciclistas, limpia la galería y la reconstruye
+function renderizarGaleria(listaCyclists) {
+  gallery.replaceChildren();
+
+  listaCyclists.forEach((cyclist) => {
+    gallery.appendChild(createCard(cyclist));
+  });
+}
+
+renderizarGaleria(cyclists);
 
 darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
+});
+
+// --- Filtro por Veterano / Joven promesa ---
+const filterButtons = document.querySelectorAll('.filter-btn');
+
+const filters = {
+  all: () => cyclists,
+  veteran: () => cyclists.filter((cyclist) => cyclist.isVeteran),
+  rookie: () => cyclists.filter((cyclist) => !cyclist.isVeteran)
+};
+
+filterButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    filterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+    renderizarGaleria(filters[button.dataset.filter]());
+  });
 });

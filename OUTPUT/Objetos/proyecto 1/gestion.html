@@ -15,22 +15,42 @@
     </nav>
   </header>
 
-  <div class="layout">
-    <aside id="sidebar">
-      <ul>
-        <li><button type="button" class="sidebar-item active" data-action="list-all">Mostrar todos</button></li>
-        <li><button type="button" class="sidebar-item" data-action="read">Leer</button></li>
-        <li><button type="button" class="sidebar-item" data-action="create">Crear</button></li>
-        <li><button type="button" class="sidebar-item" data-action="update">Actualizar</button></li>
-        <li><button type="button" class="sidebar-item" data-action="delete">Eliminar</button></li>
-      </ul>
-    </aside>
-
-    <main id="gestion"></main>
+  <!-- pantalla de acceso: login.js valida contra credenciales.js antes de mostrar #app -->
+  <div id="login-screen">
+    <form id="login-form">
+      <h2>Acceso de administración</h2>
+      <label>Usuario
+        <input type="text" name="user" required autocomplete="username">
+      </label>
+      <label>Contraseña
+        <input type="password" name="password" required autocomplete="current-password">
+      </label>
+      <p id="login-error" class="hidden">Usuario o contraseña incorrectos.</p>
+      <button type="submit">Ingresar</button>
+    </form>
   </div>
 
+  <!-- oculto hasta validar el login; login.js le quita "hidden" solo si las credenciales coinciden -->
+  <div id="app" class="hidden">
+    <div class="layout">
+      <aside id="sidebar">
+        <ul>
+          <li><button type="button" class="sidebar-item active" data-action="list-all">Mostrar todos</button></li>
+          <li><button type="button" class="sidebar-item" data-action="read">Leer</button></li>
+          <li><button type="button" class="sidebar-item" data-action="create">Crear</button></li>
+          <li><button type="button" class="sidebar-item" data-action="update">Actualizar</button></li>
+          <li><button type="button" class="sidebar-item" data-action="delete">Eliminar</button></li>
+        </ul>
+      </aside>
+
+      <main id="gestion"></main>
+    </div>
+  </div>
+
+  <script src="credenciales.js"></script>
   <script src="data.js"></script>
   <script src="storage.js"></script>
+  <script src="login.js"></script>
   <script src="gestion.js"></script>
 </body>
 </html>

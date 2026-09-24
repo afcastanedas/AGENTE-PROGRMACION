@@ -28,6 +28,68 @@ header h1 {
   font-weight: 600;
 }
 
+.hidden {
+  display: none !important;
+}
+
+#login-screen {
+  min-height: calc(100vh - 3.5rem);
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+#login-form {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+#login-form h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+#login-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: #777777;
+}
+
+#login-form input {
+  padding: 0.5rem;
+  border: 1px solid #e5e5e5;
+  font: inherit;
+  color: #111111;
+}
+
+#login-form input:focus {
+  outline: none;
+  border-color: #111111;
+}
+
+#login-form button {
+  padding: 0.5rem 1rem;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#login-form button:hover {
+  background: #333333;
+}
+
+#login-error {
+  font-size: 0.8rem;
+  color: #c0392b;
+}
+
 header nav {
   display: flex;
   gap: 1.5rem;

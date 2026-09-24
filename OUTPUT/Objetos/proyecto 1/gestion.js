@@ -1,6 +1,9 @@
 const management = document.getElementById('gestion');
 const sidebarItems = document.querySelectorAll('.sidebar-item');
 
+// El login vive en login.js. Deja lista la variable global isAuthenticated
+// (declarada en storage.js), que saveCyclists() y las funciones de abajo revisan.
+
 // action = { label, onClick }: agrega una columna con un botón por fila (opcional)
 function createRow(cyclist, action) {
   const row = document.createElement('tr');
@@ -38,18 +41,24 @@ function createTable(list, action = null) {
   });
   table.appendChild(head);
 
-  list.forEach((cyclist, index) => {
-    const rowAction = action ? { label: action.label, onClick: () => action.onClick(index) } : null;
+  list.forEach((cyclist) => {
+    const rowAction = action ? { label: action.label, onClick: () => action.onClick(cyclist.id) } : null;
     table.appendChild(createRow(cyclist, rowAction));
   });
   return table;
 }
 
-function deleteCyclist(index) {
-  const cyclist = cyclists[index];
+// id que se asignará al próximo ciclista creado; arranca después del id más alto existente
+let nextId = cyclists.reduce((max, cyclist) => Math.max(max, cyclist.id), 0) + 1;
+
+function deleteCyclist(id) {
+  if (!isAuthenticated) return;
+
+  const cyclist = cyclists.find((c) => c.id === id);
+  if (!cyclist) return;
   if (!confirm('¿Eliminar a ' + cyclist.name + '?')) return;
 
-  cyclists.splice(index, 1);
+  cyclists = cyclists.filter((c) => c.id !== id);
   saveCyclists();
   showView('delete');
 }
@@ -108,6 +117,7 @@ function createForm({ initial = null, submitLabel, onSubmit }) {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (!isAuthenticated) return;
 
     onSubmit({
       name: nameInput.value.trim(),
@@ -125,7 +135,8 @@ function createCreateView() {
   return createForm({
     submitLabel: 'Aceptar y agregar',
     onSubmit: (data) => {
-      cyclists.push(data);
+      cyclists.push({ id: nextId, ...data });
+      nextId += 1;
       saveCyclists();
       showView('list-all');
     }
@@ -133,13 +144,15 @@ function createCreateView() {
 }
 
 // paso 2 de Actualizar: formulario rellenado con los datos del ciclista elegido
-function showEditForm(index) {
+function showEditForm(id) {
+  const cyclist = cyclists.find((c) => c.id === id);
+
   management.replaceChildren(
     createForm({
-      initial: cyclists[index],
+      initial: cyclist,
       submitLabel: 'Guardar cambios',
       onSubmit: (data) => {
-        cyclists[index] = data;
+        Object.assign(cyclist, data);
         saveCyclists();
         showView('list-all');
       }
