@@ -160,11 +160,82 @@ function showEditForm(id) {
   );
 }
 
+// Tabla de usuarios registrados en el login del juego (usuarios.js).
+// Ojo: deja ver la contraseña en texto plano, solo para este ejercicio.
+function createUsersView() {
+  const users = getUsers();
+
+  if (users.length === 0) {
+    const note = document.createElement('p');
+    note.textContent = 'Todavía no hay usuarios registrados.';
+    return note;
+  }
+
+  const table = document.createElement('table');
+
+  const head = document.createElement('tr');
+  ['Nombre', 'Alias', 'Email', 'Contraseña'].forEach((title) => {
+    const th = document.createElement('th');
+    th.textContent = title;
+    head.appendChild(th);
+  });
+  table.appendChild(head);
+
+  users.forEach((user) => {
+    const row = document.createElement('tr');
+    [user.fullName, user.alias, user.email, user.password].forEach((value) => {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+    table.appendChild(row);
+  });
+
+  return table;
+}
+
+// Tabla de intentos del memorama (memory.js), registrados por scores.js al ganar.
+function createScoresView() {
+  const scores = getScores();
+
+  if (scores.length === 0) {
+    const note = document.createElement('p');
+    note.textContent = 'Todavía no hay partidas registradas.';
+    return note;
+  }
+
+  const table = document.createElement('table');
+
+  const head = document.createElement('tr');
+  ['Alias', 'Email', 'Tiempo', 'Intentos', 'Fecha'].forEach((title) => {
+    const th = document.createElement('th');
+    th.textContent = title;
+    head.appendChild(th);
+  });
+  table.appendChild(head);
+
+  // más reciente primero
+  scores.slice().reverse().forEach((score) => {
+    const row = document.createElement('tr');
+    const date = new Date(score.date).toLocaleString('es-CO');
+    [score.alias, score.email, score.time, score.attempts, date].forEach((value) => {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+    table.appendChild(row);
+  });
+
+  return table;
+}
+
 const views = {
   'list-all': () => createTable(cyclists),
   create: createCreateView,
   update: () => createTable(cyclists, { label: 'Editar', onClick: showEditForm }),
-  delete: () => createTable(cyclists, { label: 'Eliminar', onClick: deleteCyclist })
+  delete: () => createTable(cyclists, { label: 'Eliminar', onClick: deleteCyclist }),
+  users: createUsersView,
+  scores: createScoresView
 };
 
 function showView(action) {

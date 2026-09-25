@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso al juego</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <header>
+    <h1>Memoria de Ciclistas</h1>
+    <nav>
+      <a href="index.html">Galería</a>
+      <a href="gestion.html">Gestión</a>
+    </nav>
+  </header>
+
+  <main id="game-login">
+    <!-- novalidate: para que sea NUESTRA regex (game.js) la que valide y muestre el mensaje,
+         no la validación nativa del navegador para type="email" -->
+    <form id="game-login-form" novalidate>
+      <label>Nombre
+        <input type="text" name="fullName" required>
+      </label>
+
+      <label>Alias
+        <input type="text" name="alias" required>
+      </label>
+
+      <label>Email
+        <input type="email" name="email" required>
+      </label>
+      <p id="email-error" class="hidden">El email no tiene un formato válido.</p>
+
+      <label>Contraseña
+        <input type="password" name="password" required>
+      </label>
+
+      <!-- game.js marca cada requisito en tiempo real mientras se escribe -->
+      <ul id="password-requirements">
+        <li data-rule="length">Mínimo 6 caracteres</li>
+        <li data-rule="uppercase">Al menos 1 mayúscula</li>
+        <li data-rule="number">Al menos 1 número</li>
+        <li data-rule="special">Al menos 1 carácter especial</li>
+      </ul>
+      <p id="password-error" class="hidden">La contraseña no cumple los requisitos.</p>
+      <!-- distinto del error de arriba: este es "la contraseña no coincide con la del email registrado" -->
+      <p id="login-error" class="hidden">La contraseña no coincide con la de ese email.</p>
+
+      <button type="submit">Continuar</button>
+    </form>
+
+    <!-- game.js la llena con los usuarios ya registrados (usuarios.js). Visible sin loguearse,
+         a diferencia de la tabla de gestion.html que sí está detrás del login de administración. -->
+    <section id="registered-users">
+      <h2>Usuarios registrados</h2>
+      <div id="registered-users-table"></div>
+    </section>
+  </main>
+
+  <!-- oculto hasta el login/registro exitoso; memory.js arma el tablero con cyclists -->
+  <div id="game-board" class="hidden">
+    <div class="hud">
+      <div class="hud-item">
+        <span class="hud-value" id="hud-timer">00:00</span>
+        <span class="hud-label">Tiempo</span>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-item">
+        <span class="hud-value" id="hud-attempts">0</span>
+        <span class="hud-label">Intentos</span>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-item">
+        <span class="hud-value" id="hud-pairs">0/0</span>
+        <span class="hud-label">Pares</span>
+      </div>
+      <button type="button" id="btn-restart" class="filter-btn">↺ Reiniciar</button>
+    </div>
+
+    <div class="hero">
+      <h2>Encuentra los pares de ciclistas</h2>
+      <p>Voltea las cartas de a dos. Si el ciclista coincide, es un par.</p>
+    </div>
+
+    <!-- memory.js llena esto con una flip-card por cada ciclista, duplicado y mezclado -->
+    <div id="board"></div>
+
+    <div id="victory-overlay" class="hidden">
+      <div id="victory-modal">
+        <div class="trophy">🏆</div>
+        <h2>¡Lo lograste!</h2>
+        <p class="subtitle">Completaste el memorama de ciclistas.</p>
+
+        <div class="victory-stats">
+          <div class="stat">
+            <span class="stat-num" id="stat-time">--:--</span>
+            <span class="stat-label">Tiempo</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" id="stat-attempts">0</span>
+            <span class="stat-label">Intentos</span>
+          </div>
+        </div>
+
+        <button type="button" id="btn-play-again">Jugar de nuevo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="storage.js"></script>
+  <script src="usuarios.js"></script>
+  <script src="scores.js"></script>
+  <script src="memory.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

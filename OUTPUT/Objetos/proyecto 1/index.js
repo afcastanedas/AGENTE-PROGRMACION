@@ -45,8 +45,13 @@ darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
 });
 
-// --- Filtro por Veterano / Joven promesa ---
-const filterButtons = document.querySelectorAll('.filter-btn');
+// --- Filtro por Veterano / Joven promesa + Equipo + Edad máxima (slider) ---
+// Los tres filtros se combinan: cada uno reduce el array que ya dejaron los otros.
+const filterButtons = document.querySelectorAll('.filter-btn[data-filter]');
+const ageSlider = document.getElementById('age-slider');
+const ageValue = document.getElementById('age-value');
+const teamFilter = document.getElementById('team-filter');
+const resetFiltersBtn = document.getElementById('reset-filters');
 
 const filters = {
   all: () => cyclists,
@@ -54,9 +59,49 @@ const filters = {
   rookie: () => cyclists.filter((cyclist) => !cyclist.isVeteran)
 };
 
+let currentStatusFilter = 'all';
+
+// Equipos únicos tomados de cyclists, no una lista fija: si cambian los datos, el menú se ajusta solo
+[...new Set(cyclists.map((cyclist) => cyclist.team))].forEach((team) => {
+  const option = document.createElement('option');
+  option.value = team;
+  option.textContent = team;
+  teamFilter.appendChild(option);
+});
+
+function applyFilters() {
+  const maxAge = Number(ageSlider.value);
+  const byStatus = filters[currentStatusFilter]();
+  const byTeam = teamFilter.value === 'all'
+    ? byStatus
+    : byStatus.filter((cyclist) => cyclist.team === teamFilter.value);
+
+  renderizarGaleria(byTeam.filter((cyclist) => cyclist.age <= maxAge));
+}
+
 filterButtons.forEach((button) => {
   button.addEventListener('click', () => {
     filterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
-    renderizarGaleria(filters[button.dataset.filter]());
+    currentStatusFilter = button.dataset.filter;
+    applyFilters();
   });
+});
+
+ageSlider.addEventListener('input', () => {
+  ageValue.textContent = ageSlider.value;
+  applyFilters();
+});
+
+teamFilter.addEventListener('change', applyFilters);
+
+resetFiltersBtn.addEventListener('click', () => {
+  currentStatusFilter = 'all';
+  filterButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.filter === 'all'));
+
+  teamFilter.value = 'all';
+
+  ageSlider.value = ageSlider.max;
+  ageValue.textContent = ageSlider.value;
+
+  applyFilters();
 });

@@ -21,10 +21,26 @@
     <button type="button" class="filter-btn active" data-filter="all">Todos</button>
     <button type="button" class="filter-btn" data-filter="veteran">Veterano</button>
     <button type="button" class="filter-btn" data-filter="rookie">Joven promesa</button>
+
+    <!-- index.js la llena con los equipos que existan en data.js -->
+    <select id="team-filter">
+      <option value="all">Todos los equipos</option>
+    </select>
+
+    <button type="button" id="reset-filters" class="filter-btn">Restaurar filtros</button>
   </section>
 
-  <!-- index.js llena este contenedor con una carta por cada objeto de data.js -->
-  <section id="galeria"></section>
+  <div class="gallery-layout">
+    <!-- index.js escucha "input" (se dispara en cada movimiento) y filtra por edad máxima -->
+    <aside id="filtro-edad">
+      <label for="age-slider">Edad máxima</label>
+      <input type="range" id="age-slider" min="22" max="34" value="34" step="1" orient="vertical">
+      <span id="age-value">34</span>
+    </aside>
+
+    <!-- index.js llena este contenedor con una carta por cada objeto de data.js -->
+    <section id="galeria"></section>
+  </div>
 
   <!-- data.js va primero: declara el array que index.js necesita -->
   <script src="data.js"></script>

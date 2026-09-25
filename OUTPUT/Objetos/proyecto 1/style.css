@@ -112,7 +112,68 @@ body.dark-mode .card {
   color: #7ee8fa;
 }
 
+.gallery-layout {
+  display: flex;
+  align-items: flex-start;
+}
+
+#filtro-edad {
+  flex: 0 0 90px;
+  padding: 2.5rem 0 2.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#filtro-edad label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a9b4cc;
+  text-align: center;
+}
+
+#age-slider {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  -webkit-appearance: slider-vertical;
+  width: 8px;
+  height: 200px;
+  accent-color: #7ee8fa;
+  cursor: pointer;
+}
+
+#age-value {
+  font-weight: 700;
+  color: #7ee8fa;
+  font-size: 0.95rem;
+}
+
+#team-filter {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e8ecf6;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+#team-filter:hover {
+  border-color: rgba(126, 232, 250, 0.5);
+}
+
+/* el navegador dibuja la lista desplegable con fondo claro, así que sus
+   opciones necesitan texto oscuro para no quedar ilegibles (texto claro
+   sobre fondo claro) */
+#team-filter option {
+  color: #111111;
+  background: #ffffff;
+}
+
 #galeria {
+  flex: 1;
   padding: 2.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -126,6 +187,86 @@ body.dark-mode .card {
 
 .hidden {
   display: none !important;
+}
+
+#game-login {
+  min-height: calc(100vh - 5rem);
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+#game-login-form {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 340px;
+}
+
+#game-login-form label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #a9b4cc;
+}
+
+#game-login-form input {
+  padding: 0.6rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #e8ecf6;
+  font: inherit;
+}
+
+#game-login-form input:focus {
+  outline: none;
+  border-color: rgba(126, 232, 250, 0.5);
+}
+
+#password-requirements {
+  list-style: none;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+}
+
+#password-requirements li {
+  color: #a9b4cc;
+  transition: color 0.15s ease;
+}
+
+#password-requirements li::before {
+  content: '○ ';
+}
+
+#password-requirements li.met {
+  color: #a6ffcb;
+}
+
+#password-requirements li.met::before {
+  content: '✓ ';
+}
+
+#password-error {
+  font-size: 0.8rem;
+  color: #ff8fab;
+  font-weight: 600;
+}
+
+#game-login-form button {
+  background: linear-gradient(135deg, #7ee8fa, #66a6ff);
+  color: #0a0f1e;
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.2rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#game-login-form button:hover {
+  box-shadow: 0 6px 20px rgba(102, 166, 255, 0.4);
 }
 
 #modal-overlay {
