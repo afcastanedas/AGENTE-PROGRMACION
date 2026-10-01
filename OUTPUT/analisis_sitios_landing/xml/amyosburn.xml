@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitio nombre="Amy Osburn" url="https://www.amyosburn.com/">
+  <header>
+    <logo>Amy Osburn Creative Director</logo>
+    <nav tipo="overlay-fullscreen">
+      <enlace>Fashion</enlace>
+      <enlace>Beauty</enlace>
+      <enlace>Lifestyle</enlace>
+      <enlace>Interiors</enlace>
+      <enlace>About</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">Creative Director and On-Set Art Director — presentacion de rol</section>
+    <section tipo="servicios">Listado de competencias: concepting, art direction, entre otras</section>
+    <section tipo="proyecto-destacado">Old Navy BTS '25 — descripcion y CTA</section>
+    <section tipo="galeria-proyectos">Tres proyectos principales (Holiday, Summer) con imagenes y enlaces</section>
+    <section tipo="social-feed">See the Latest on IG — embeds de Instagram</section>
+  </main>
+  <footer>
+    <redes>LinkedIn, Instagram</redes>
+    <contacto>amy@amyosburn.com</contacto>
+  </footer>
+</sitio>

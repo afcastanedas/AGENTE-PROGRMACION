@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitio nombre="Matt D'Avella" url="https://www.mattdavella.com/">
+  <header>
+    <logo>Matt D'Avella</logo>
+    <nav tipo="fija">
+      <enlace>About</enlace>
+      <enlace>Podcast</enlace>
+      <enlace>Newsletter</enlace>
+      <enlace>Course</enlace>
+      <enlace>Tools</enlace>
+      <enlace>Course Login</enlace>
+    </nav>
+    <nav tipo="hamburguesa">
+      <enlace>About</enlace>
+      <enlace>Podcast</enlace>
+      <enlace>Newsletter</enlace>
+      <enlace>Course</enlace>
+      <enlace>Tools</enlace>
+      <enlace>Course Login</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">Don't sacrifice your soul to the algorithm — CTA de newsletter (94,705 suscriptores)</section>
+    <section tipo="validacion-social">Carrusel de logos de medios: BBC, Wired, Business Insider, Washington Post, Netflix, Forbes</section>
+    <section tipo="testimonios">Carrusel de citas: Ali Abdaal, Kariza Santos, Mark Manson, Ramit Sethi, entre otros</section>
+    <section tipo="problema-solucion">Contraste entre "quieres hacer algo con sentido" y "el ruido del algoritmo"</section>
+    <section tipo="about">Biografía del autor: documentalista nominado al Emmy, 4 millones de suscriptores</section>
+    <section tipo="filosofia">Comparativa visual (✗ vs ✓) de qué es y qué no es ser un "slow creator"</section>
+    <section tipo="productos">Grid de 3 productos: Snail Mail (newsletter), Master YouTube (curso), Slow Creator Podcast</section>
+  </main>
+  <footer>
+    <redes>Instagram, YouTube</redes>
+    <contacto>support@mattdavella.com</contacto>
+  </footer>
+</sitio>

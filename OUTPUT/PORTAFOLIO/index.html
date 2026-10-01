@@ -14,14 +14,17 @@
     <button type="button" id="nav-toggle" aria-label="Abrir menú">Menu</button>
   </header>
 
+  <!-- Panel lateral (slide-out), no overlay a pantalla completa -->
   <div id="nav-overlay" class="hidden">
-    <button type="button" id="nav-close" aria-label="Cerrar menú">Close</button>
-    <nav id="main-nav">
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div id="nav-panel">
+      <button type="button" id="nav-close" aria-label="Cerrar menú">Close</button>
+      <nav id="main-nav">
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </div>
 
   <!-- Hero: video/imagen de fondo + titular. index.js no toca esta sección -->
@@ -49,10 +52,35 @@
     <div class="process-grid" id="process-grid"></div>
   </section>
 
+  <section id="experience">
+    <h2>Experience</h2>
+    <!-- index.js la llena con info.experience (placeholder hasta que tengas roles reales) -->
+    <div id="experience-list"></div>
+  </section>
+
   <section id="work">
     <h2>Work</h2>
-    <!-- index.js llena esto con una card por cada proyecto de data.js -->
+    <!-- index.js la llena con "All" + las categorías que existan en proyectos.js -->
+    <div id="work-filters"></div>
+    <!-- index.js llena esto con una card por cada proyecto de proyectos.js -->
     <div id="galeria-proyectos"></div>
+  </section>
+
+  <section id="testimonials">
+    <!-- index.js la llena con info.testimonials (placeholder) -->
+    <div id="testimonials-list"></div>
+  </section>
+
+  <section id="clients">
+    <h2>Clients</h2>
+    <!-- index.js la llena con info.clients (placeholder) -->
+    <div id="clients-grid"></div>
+  </section>
+
+  <section id="awards">
+    <h2>Awards &amp; Recognition</h2>
+    <!-- index.js la llena con info.awards (placeholder) -->
+    <div id="awards-list"></div>
   </section>
 
   <section id="contact">

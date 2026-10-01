@@ -22,6 +22,36 @@ let info = {
     { label: 'Compositing', description: 'Bringing every layer together into one coherent final piece.' }
   ],
 
+  // PLACEHOLDER: ninguno de estos clientes es real. Reemplaza cada uno cuando tengas clientes reales.
+  clients: [
+    '[Client 1]', '[Client 2]', '[Client 3]', '[Client 4]',
+    '[Client 5]', '[Client 6]', '[Client 7]', '[Client 8]'
+  ],
+
+  // PLACEHOLDER: testimonio de ejemplo, no es una cita real de nadie.
+  testimonials: [
+    {
+      quote: '[Cita de ejemplo — reemplazar con un testimonio real de un cliente o colaborador]',
+      author: '[Nombre]',
+      role: '[Cargo, Empresa]'
+    }
+  ],
+
+  // PLACEHOLDER: ningún premio es real todavía.
+  awards: [
+    { title: '[Nombre del reconocimiento — reemplazar]', year: '[Año]' }
+  ],
+
+  // PLACEHOLDER: experiencia de ejemplo, reemplaza con tus roles reales.
+  experience: [
+    {
+      role: '[Cargo — reemplazar]',
+      company: '[Empresa — reemplazar]',
+      period: '[Año inicio] – [Año fin]',
+      description: '[Breve descripción de responsabilidades y logros en este rol.]'
+    }
+  ],
+
   contact: {
     text: "I am currently looking to continue growing in the field of social media content creation and to develop projects in collaboration with other creators, agencies, and brands.",
     // TODO: reemplazar con tu email real

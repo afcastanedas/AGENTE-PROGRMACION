@@ -18,9 +18,14 @@ function renderInfo(data) {
 
   const processGrid = document.getElementById('process-grid');
   processGrid.replaceChildren();
-  data.process.forEach((step) => {
+  data.process.forEach((step, index) => {
     const stepEl = document.createElement('div');
     stepEl.className = 'process-step';
+
+    const number = document.createElement('span');
+    number.className = 'process-number';
+    // Numeración tipo "01, 02, 03...", generada acá — no hace falta escribirla a mano en info.js
+    number.textContent = String(index + 1).padStart(2, '0');
 
     const label = document.createElement('span');
     label.className = 'process-label';
@@ -29,8 +34,71 @@ function renderInfo(data) {
     const description = document.createElement('p');
     description.textContent = step.description;
 
-    stepEl.append(label, description);
+    stepEl.append(number, label, description);
     processGrid.appendChild(stepEl);
+  });
+
+  const experienceList = document.getElementById('experience-list');
+  experienceList.replaceChildren();
+  data.experience.forEach((job) => {
+    const item = document.createElement('div');
+    item.className = 'experience-item';
+
+    const role = document.createElement('h3');
+    role.textContent = job.role + ' — ' + job.company;
+
+    const period = document.createElement('span');
+    period.className = 'experience-period';
+    period.textContent = job.period;
+
+    const description = document.createElement('p');
+    description.textContent = job.description;
+
+    item.append(role, period, description);
+    experienceList.appendChild(item);
+  });
+
+  const testimonialsList = document.getElementById('testimonials-list');
+  testimonialsList.replaceChildren();
+  data.testimonials.forEach((testimonial) => {
+    const item = document.createElement('blockquote');
+    item.className = 'testimonial';
+
+    const quote = document.createElement('p');
+    quote.className = 'testimonial-quote';
+    quote.textContent = '“' + testimonial.quote + '”';
+
+    const author = document.createElement('cite');
+    author.textContent = testimonial.author + ' — ' + testimonial.role;
+
+    item.append(quote, author);
+    testimonialsList.appendChild(item);
+  });
+
+  const clientsGrid = document.getElementById('clients-grid');
+  clientsGrid.replaceChildren();
+  data.clients.forEach((client) => {
+    const item = document.createElement('span');
+    item.className = 'client-name';
+    item.textContent = client;
+    clientsGrid.appendChild(item);
+  });
+
+  const awardsList = document.getElementById('awards-list');
+  awardsList.replaceChildren();
+  data.awards.forEach((award) => {
+    const item = document.createElement('div');
+    item.className = 'award-item';
+
+    const title = document.createElement('span');
+    title.textContent = award.title;
+
+    const year = document.createElement('span');
+    year.className = 'award-year';
+    year.textContent = award.year;
+
+    item.append(title, year);
+    awardsList.appendChild(item);
   });
 
   document.getElementById('contact-text').textContent = data.contact.text;
@@ -107,6 +175,35 @@ function renderizarGaleria(listaProyectos) {
   listaProyectos.forEach((project) => gallery.appendChild(createProjectCard(project)));
 }
 
+// --- Filtro de categorías en Work, como el portafolio de designbybrandin.com ---
+const workFilters = document.getElementById('work-filters');
+
+function renderWorkFilters(listaProyectos) {
+  const categories = ['All', ...new Set(listaProyectos.map((project) => project.category))];
+
+  workFilters.replaceChildren();
+  categories.forEach((category) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'filter-btn' + (category === 'All' ? ' active' : '');
+    button.textContent = category;
+    button.dataset.category = category;
+
+    button.addEventListener('click', () => {
+      workFilters.querySelectorAll('.filter-btn').forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const filtered = category === 'All'
+        ? listaProyectos
+        : listaProyectos.filter((project) => project.category === category);
+      renderizarGaleria(filtered);
+    });
+
+    workFilters.appendChild(button);
+  });
+}
+
+renderWorkFilters(projects);
 renderizarGaleria(projects);
 
 // --- Nav overlay a pantalla completa (patrón de amyosburn.com) ---

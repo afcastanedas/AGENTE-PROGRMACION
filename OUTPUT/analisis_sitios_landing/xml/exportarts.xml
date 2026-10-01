@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitio nombre="Exportarts Studio" url="https://www.exportarts.studio/">
+  <header>
+    <logo>Exportarts Studio</logo>
+    <nav tipo="overlay-fullscreen">
+      <enlace>Branding</enlace>
+      <enlace>Edits</enlace>
+      <enlace>UGC</enlace>
+      <enlace>Testimonials</enlace>
+      <enlace>Long Form</enlace>
+      <enlace>Drone Shots</enlace>
+      <enlace>Anfragen</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">Vertical first — titular y subtitulo de posicionamiento de marca</section>
+    <section tipo="clientes">Carrusel de logos: Lichtwunder, Schuco, Wicker, Gelb Solar, entre otros</section>
+    <section tipo="about">Jonas Mueller — descripcion de la agencia, enlace "Video ansehen"</section>
+    <section tipo="servicios">Descripcion de formatos y especializaciones</section>
+    <section tipo="handwerk">Carrusel de 7 servicios: Post Production, Video Ads, Scripting, Creatives, entre otros</section>
+    <section tipo="branding-content">Metrica de followers y CTA de video</section>
+    <section tipo="high-quality-edits">Metricas de engagement y CTA de video</section>
+    <section tipo="ugc-content">Metricas de shares/comentarios y CTA de video</section>
+    <section tipo="testimonials">Metrica de conversion y CTA de video</section>
+    <section tipo="long-form-content">Metrica de watchtime y CTA de video</section>
+    <section tipo="drone-shots">Perspectiva diferencial, mencion de certificacion A2, CTA de video</section>
+    <section tipo="servicios-detallados">Carrusel de 8 servicios: Creative Strategy, Film Shooting, Video Cutting, entre otros</section>
+    <section tipo="banner">Imagen de fondo cinematica con videografo</section>
+    <section tipo="cta-final">Mach's besser... — boton Jetzt starten</section>
+    <section tipo="contacto">Tim Selzer — descripcion personal, formulario y telefono</section>
+  </main>
+  <footer>
+    <redes>No identificado</redes>
+    <contacto>Enlace telefonico (numero no capturado); Impressum y Datenschutz</contacto>
+  </footer>
+</sitio>

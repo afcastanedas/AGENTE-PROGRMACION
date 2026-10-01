@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitio nombre="Artem Shcherbakov" url="https://artemartemartem.com/">
+  <header>
+    <logo>artem shcherbakov</logo>
+    <nav tipo="fija">
+      <enlace>Projects</enlace>
+      <enlace>Contact</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">Hey I'm Artem — presentacion personal con GIF animado y descripcion de rol</section>
+    <section tipo="portfolio">Listado de proyectos (Billy Pause Fest, Yandex Search, Winline, entre otros) con categorias CGI / live action</section>
+    <section tipo="about">Parrafo narrativo sobre logros, menciona "The Spark" y trabajos en videojuegos</section>
+    <section tipo="contexto-personal">Informacion sobre Roar Games y trayectoria personal</section>
+    <section tipo="galeria">Seis imagenes/GIFs animados</section>
+    <section tipo="contacto">Datos de representacion: agencia Catalyzm, agentes, email y telefono</section>
+  </main>
+  <footer>
+    <redes>No identificado</redes>
+    <contacto>Representacion: agencia Catalyzm</contacto>
+  </footer>
+</sitio>

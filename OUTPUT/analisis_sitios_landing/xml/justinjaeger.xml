@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitio nombre="Justin Jaeger" url="https://www.justinjaeger.com/">
+  <header>
+    <logo>JJ</logo>
+    <nav tipo="hamburguesa">
+      <enlace>Portfolio</enlace>
+      <enlace>Services</enlace>
+      <enlace>About</enlace>
+      <enlace>Contact</enlace>
+      <enlace>Photography</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">35 Year Old UGC Creator | Florida — imagen de portada y titular principal</section>
+    <section tipo="introduccion">Let's Work Together — ubicacion, nichos (cafe, tech, gadgets, moda, grooming), experiencia como copywriter/media buyer</section>
+    <section tipo="portfolio">Videos categorizados: tech, cafe, lifestyle</section>
+    <section tipo="testimonios">Citas destacadas de clientes, sin autor especifico visible</section>
+    <section tipo="prueba-social">Organic Views — graficos de estadisticas de visualizaciones</section>
+    <section tipo="propuesta-de-valor">Why Me? — diferenciadores del creador</section>
+    <section tipo="about">Mas sobre mi: viajes, familia, aficiones, 8+ anos en la industria cafetera</section>
+    <section tipo="clientes">Logos de marcas con las que ha trabajado</section>
+    <section tipo="cta-final">Let's Work Together — email de contacto</section>
+  </main>
+  <footer>
+    <redes>Instagram (@jaeger.haus)</redes>
+    <contacto>hello@justinjaeger.com</contacto>
+  </footer>
+</sitio>

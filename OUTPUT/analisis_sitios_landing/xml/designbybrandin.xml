@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitio nombre="Design By Brandin" url="https://designbybrandin.com/">
+  <header>
+    <logo>Design By Brandin (icono DBB, versiones dark/light)</logo>
+    <nav tipo="hamburguesa">
+      <enlace>Work</enlace>
+      <enlace>Expertise</enlace>
+      <enlace>Experience</enlace>
+      <enlace>Clients</enlace>
+      <enlace>Awards</enlace>
+      <enlace>About</enlace>
+      <enlace>Connect</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">creative director, Brandin Hall — ubicacion, especialidades y 15+ anos de experiencia</section>
+    <section tipo="portfolio">Featured Work, filtrable por All/Branding/Graphic Design/Web Design — 6 proyectos</section>
+    <section tipo="expertise">My Expertise — 5 areas numeradas: AI, Creative Leadership, Branding, Web Design and Development, Digital Creative</section>
+    <section tipo="experiencia-laboral">My Experience — 3 roles con logros cuantificados</section>
+    <section tipo="testimonio">Cita destacada sobre encontrar el "por que" de una marca</section>
+    <section tipo="clientes">Clients — 85+ marcas agrupadas en 8 industrias, con estadisticas</section>
+    <section tipo="premios">Awards and Recognition — Clutch, Hamilton Spectator</section>
+    <section tipo="about">Biografia narrativa de Brandin Hall</section>
+  </main>
+  <footer>
+    <redes>LinkedIn</redes>
+    <contacto>brandinwhall@gmail.com</contacto>
+  </footer>
+</sitio>

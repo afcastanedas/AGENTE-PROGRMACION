@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nota: el HTML real de este sitio no usa header/nav/footer semanticos (todo son
+     <section> genericas dentro de un <main>, exportadas por Canva Websites). Esta
+     estructura representa el contenido observado, no las etiquetas literales del DOM. -->
+<sitio nombre="Jeca Martinez" url="https://jecamartinez.com/">
+  <header>
+    <logo>Jeca Martinez</logo>
+    <nav tipo="fija">
+      <enlace>About Me</enlace>
+      <enlace>Portfolio</enlace>
+      <enlace>Contact</enlace>
+    </nav>
+  </header>
+  <main>
+    <section tipo="hero">Welcome to the Whimsical World — presentacion como Content Creator</section>
+    <section tipo="about">Bio: creadora basada en Hamilton, Canada; 10+ anos de experiencia; software: Adobe CS, Capcut, Canva</section>
+    <section tipo="portfolio-marcas">Colaboraciones con marcas, cada video con metricas de vistas y likes</section>
+    <section tipo="portfolio-categorias">Contenido por tema: Travel, Local Experiences, Parties and Crafts, Pets, Fashion and Beauty</section>
+    <section tipo="valores">Content checklist: Authentic, Story-driven, Engaging, Whimsical</section>
+    <section tipo="contacto">Ready to collab? — email y redes sociales</section>
+  </main>
+  <footer>
+    <redes>Instagram (@jecamagenta), TikTok (@jecamagenta)</redes>
+    <contacto>jecamagenta@gmail.com</contacto>
+  </footer>
+</sitio>
