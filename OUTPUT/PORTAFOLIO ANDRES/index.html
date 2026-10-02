@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0c0b0a;color:#f0ece4;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#f0ece4;text-decoration:none}
+a:hover{color:#9a958c}
+::selection{background:#F4320B;color:#ffffff}
+</style>
+</helmet>
+
+<div style="position:relative;min-height:100vh;background:#0c0b0a;color:#f0ece4">
+
+  <header style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,3vw,40px)">
+    <a href="#top" style="font-family:'Archivo';font-stretch:75%;font-weight:800;font-size:20px;letter-spacing:0.02em;color:#f0ece4">{{ initials }}</a>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="#contact" style="white-space:nowrap;flex-shrink:0;padding:10px 16px;border-radius:999px;background:rgba(12,11,10,0.85);border:1px solid rgba(240,236,228,0.18);transition:background .2s ease,border-color .2s ease;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#f0ece4" style-hover="background:#F4320B;border-color:#F4320B;color:#f0ece4">Get in touch</a>
+      <button type="button" onClick="{{ openMenu }}" style-hover="background:#F4320B;border-color:#F4320B;color:#f0ece4" style="white-space:nowrap;flex-shrink:0;padding:10px 16px;border-radius:999px;background:rgba(12,11,10,0.85);border:1px solid rgba(240,236,228,0.18);transition:background .2s ease,border-color .2s ease;cursor:pointer;display:flex;align-items:center;gap:10px;color:#f0ece4;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em">
+        <span>Menu</span>
+        <span style="display:flex;flex-direction:column;gap:4px"><span style="display:block;width:22px;height:1.5px;background:#f0ece4"></span><span style="display:block;width:22px;height:1.5px;background:#f0ece4"></span></span>
+      </button>
+    </div>
+  </header>
+
+  <div onClick="{{ closeMenu }}" style="position:fixed;inset:0;z-index:30;background:rgba(0,0,0,0.6);transition:opacity .35s ease;opacity:{{ overlayOpacity }};pointer-events:{{ overlayPE }}"></div>
+  <aside style="position:fixed;top:0;right:0;bottom:0;z-index:31;width:min(440px,100vw);background:#161513;border-left:1px solid rgba(240,236,228,0.12);padding:22px 32px 32px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .45s cubic-bezier(.7,0,.2,1);transform:translateX({{ panelX }})">
+    <button type="button" onClick="{{ closeMenu }}" style-hover="background:#F4320B;border-color:#F4320B;color:#f0ece4" style="align-self:flex-end;white-space:nowrap;flex-shrink:0;padding:10px 16px;border-radius:999px;background:rgba(12,11,10,0.85);border:1px solid rgba(240,236,228,0.18);transition:background .2s ease,border-color .2s ease;cursor:pointer;color:#f0ece4;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em">Close</button>
+    <nav style="display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="6">
+        <a href="{{ l.href }}" onClick="{{ closeMenu }}" style="display:flex;align-items:baseline;gap:16px;padding:6px 0;color:#f0ece4" style-hover="color:#9a958c">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9a958c">{{ l.num }}</span>
+          <span style="font-stretch:75%;font-weight:800;font-size:48px;line-height:1;text-transform:uppercase">{{ l.label }}</span>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#9a958c">
+      <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3"><a href="{{ s.href }}" style="color:#9a958c" style-hover="color:#f0ece4">{{ s.name }}</a></sc-for>
+    </div>
+  </aside>
+
+  <section id="top" data-screen-label="Hero" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px clamp(20px,3vw,40px) clamp(24px,3vw,40px);overflow:hidden">
+    <div style="position:absolute;inset:0;z-index:0;background:#F4320B"></div>
+
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)">
+      <div style="display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:#f0ece4">
+        <span style="display:block;width:8px;height:8px;border-radius:50%;background:#f0ece4"></span>
+        <span>{{ heroSubtitle }}</span>
+      </div>
+      <h1 data-reveal="" style="margin:0;font-stretch:68%;font-weight:850;font-size:clamp(64px,15.5vw,280px);line-height:0.92;letter-spacing:-0.01em;text-transform:uppercase;color:#000000">
+        <span style="display:block">{{ nameFirst }}</span>
+        <span style="display:block;margin-top:0.16em">{{ nameLast }}</span>
+      </h1>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px 32px;padding-top:20px;border-top:1px solid rgba(240,236,228,0.18)">
+        <p style="margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.3;max-width:28ch;text-wrap:pretty">{{ heroTitle }}</p>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#9a958c">
+          <span>Based in</span>
+          <span style="color:#f0ece4">{{ location }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#9a958c">
+          <span>Disciplines</span>
+          <span style="color:#f0ece4">{{ disciplinesLine }}</span>
+        </div>
+        <a href="#work" style="align-self:end;justify-self:start;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em">↓ Selected work</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" data-screen-label="Work" style="padding:clamp(80px,10vw,160px) clamp(20px,3vw,40px) clamp(60px,8vw,120px)">
+    <div data-reveal="" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:clamp(32px,4vw,56px)">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">// 01 — Featured work</span>
+        <h2 style="margin:0;font-stretch:75%;font-weight:800;font-size:clamp(40px,6vw,96px);line-height:0.9;text-transform:uppercase;max-width:12ch">Selected work</h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ categories }}" as="c" hint-placeholder-count="5">
+          <button type="button" onClick="{{ c.onClick }}" style-hover="background:#F4320B;border-color:#F4320B;color:#f0ece4" style="cursor:pointer;border-radius:999px;padding:9px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;transition:all .2s ease;background:{{ c.bg }};color:{{ c.color }};border:1px solid {{ c.border }}">{{ c.name }} <sup style="font-size:9px;opacity:.6">{{ c.count }}</sup></button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:grid;gap:clamp(20px,2.4vw,36px) clamp(16px,2vw,28px);grid-template-columns:{{ gridCols }}">
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+        <article data-reveal="" onMouseEnter="{{ p.onEnter }}" onMouseLeave="{{ p.onLeave }}" style="display:flex;flex-direction:column;gap:14px;cursor:pointer">
+          <div style="position:relative;overflow:hidden;background:#161513;aspect-ratio:{{ tileAspect }}">
+            <sc-if value="{{ p.showVideo }}" hint-placeholder-val="{{ false }}">
+              <video src="{{ p.src }}" poster="{{ p.poster }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            </sc-if>
+            <sc-if value="{{ p.showImage }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ p.src }}" alt="{{ p.title }}" style="width:100%;height:100%;object-fit:cover;display:block"></img>
+            </sc-if>
+            <sc-if value="{{ p.showPlaceholder }}" hint-placeholder-val="{{ true }}">
+              <div style="width:100%;height:100%;display:grid;place-items:center;background:repeating-linear-gradient(135deg,#141311 0 14px,#1a1917 14px 28px)">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6f6b64">{{ p.placeholderLabel }}</span>
+              </div>
+            </sc-if>
+            <span style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:999px;background:rgba(12,11,10,0.7);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em"><span style="display:block;width:6px;height:6px;border-radius:50%;background:#F4320B"></span>{{ p.category }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+            <h3 style="margin:0;font-stretch:80%;font-weight:700;font-size:clamp(20px,1.8vw,28px);line-height:1.05;text-transform:uppercase;text-wrap:pretty">{{ p.title }}</h3>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9a958c">{{ p.num }}</span>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="process" data-screen-label="Process" style="padding:clamp(60px,8vw,120px) clamp(20px,3vw,40px)">
+    <div data-reveal="" style="display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(32px,4vw,56px)">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">// 02 — Process</span>
+      <h2 style="margin:0;font-stretch:75%;font-weight:800;font-size:clamp(40px,6vw,96px);line-height:0.9;text-transform:uppercase;max-width:14ch">From idea to final frame</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;border-bottom:1px solid rgba(240,236,228,0.14)">
+      <sc-for list="{{ process }}" as="s" hint-placeholder-count="6">
+        <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 32px;padding:clamp(20px,2.4vw,32px) 0;border-top:1px solid rgba(240,236,228,0.14);transition:padding .3s ease,color .2s ease" style-hover="padding-left:16px;color:#F4320B">
+          <span style="flex:0 0 72px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#9a958c">// {{ s.num }}</span>
+          <span style="flex:1 1 320px;font-stretch:75%;font-weight:800;font-size:clamp(32px,4.4vw,68px);line-height:0.95;text-transform:uppercase">{{ s.label }}</span>
+          <p style="flex:1 1 280px;margin:0;max-width:42ch;font-size:16px;line-height:1.5;color:#9a958c;text-wrap:pretty">{{ s.description }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ showExperience }}" hint-placeholder-val="{{ true }}">
+    <section id="experience" data-screen-label="Experience" style="padding:clamp(60px,8vw,120px) clamp(20px,3vw,40px)">
+      <div data-reveal="" style="display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(32px,4vw,56px)">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">// 03 — Experience</span>
+        <h2 style="margin:0;font-stretch:75%;font-weight:800;font-size:clamp(40px,6vw,96px);line-height:0.9;text-transform:uppercase">Experience</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;border-bottom:1px solid rgba(240,236,228,0.14)">
+        <sc-for list="{{ experience }}" as="j" hint-placeholder-count="2">
+          <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:28px 0;border-top:1px solid rgba(240,236,228,0.14)">
+            <span style="flex:0 0 200px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#f0ece4"><span style="display:block;width:6px;height:6px;border-radius:50%;background:#F4320B"></span>{{ j.period }}</span>
+            <div style="flex:1 1 320px;display:flex;flex-direction:column;gap:4px">
+              <h3 style="margin:0;font-stretch:80%;font-weight:800;font-size:clamp(24px,2.4vw,36px);line-height:1;text-transform:uppercase">{{ j.company }}</h3>
+              <span style="font-size:16px;color:#9a958c">{{ j.role }}</span>
+            </div>
+            <p style="flex:1 1 280px;margin:0;max-width:48ch;font-size:16px;line-height:1.55;color:#c9c4ba;text-wrap:pretty">{{ j.description }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <section data-screen-label="Statement" style="padding:clamp(80px,12vw,200px) clamp(20px,3vw,40px)">
+    <p data-reveal="" style="margin:0;max-width:20ch;font-stretch:75%;font-weight:700;font-size:clamp(36px,6.4vw,112px);line-height:0.98;text-transform:uppercase;text-wrap:balance">{{ statement }}</p>
+  </section>
+
+  <sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ true }}">
+    <section data-screen-label="Testimonials" style="padding:clamp(40px,6vw,80px) clamp(20px,3vw,40px)">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="1">
+        <blockquote data-reveal="" style="margin:0 0 48px;display:flex;flex-wrap:wrap;gap:20px 32px;padding-top:28px;border-top:1px solid rgba(240,236,228,0.14)">
+          <span style="flex:0 0 200px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">Testimonial</span>
+          <div style="flex:1 1 420px;display:flex;flex-direction:column;gap:20px">
+            <p style="margin:0;max-width:34ch;font-size:clamp(22px,2.4vw,34px);line-height:1.25;text-wrap:pretty">“{{ t.quote }}”</p>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#9a958c">{{ t.author }} — {{ t.role }}</span>
+          </div>
+        </blockquote>
+      </sc-for>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ showClients }}" hint-placeholder-val="{{ true }}">
+    <section id="clients" data-screen-label="Clients" style="padding:clamp(60px,8vw,120px) clamp(20px,3vw,40px)">
+      <div data-reveal="" style="display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(32px,4vw,56px)">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">// 04 — Clients</span>
+        <h2 style="margin:0;font-stretch:75%;font-weight:800;font-size:clamp(40px,6vw,96px);line-height:0.9;text-transform:uppercase">Clients</h2>
+      </div>
+      <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));border-top:1px solid rgba(240,236,228,0.14);border-left:1px solid rgba(240,236,228,0.14)">
+        <sc-for list="{{ clients }}" as="c" hint-placeholder-count="8">
+          <div style="display:flex;align-items:center;justify-content:center;min-height:120px;padding:20px;border-right:1px solid rgba(240,236,228,0.14);border-bottom:1px solid rgba(240,236,228,0.14);font-stretch:80%;font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:0.02em;color:#9a958c;text-align:center;transition:color .2s ease,background .2s ease" style-hover="color:#f0ece4;background:#F4320B">{{ c.name }}</div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <section id="about" data-screen-label="About" style="padding:clamp(60px,8vw,120px) clamp(20px,3vw,40px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,80px);align-items:start">
+      <div data-reveal="" style="aspect-ratio:4/5;display:grid;place-items:center;background:repeating-linear-gradient(135deg,#141311 0 14px,#1a1917 14px 28px)">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6f6b64">Retrato / foto tuya</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:32px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">// 05 — About</span>
+        <h2 style="margin:0;font-stretch:68%;font-weight:850;font-size:clamp(48px,7vw,120px);line-height:0.92;text-transform:uppercase"><span style="display:block">{{ nameFirst }}</span><span style="display:block;margin-top:0.16em">{{ nameLast }}</span></h2>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">Toolkit</span>
+          <div style="display:flex;flex-direction:column;border-bottom:1px solid rgba(240,236,228,0.14)">
+            <sc-for list="{{ tools }}" as="t" hint-placeholder-count="3">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-top:1px solid rgba(240,236,228,0.14)">
+                <span style="font-size:18px">{{ t.name }}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9a958c">{{ t.num }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" data-screen-label="Contact" style="border-top:3px solid #F4320B;padding:clamp(80px,10vw,160px) clamp(20px,3vw,40px) 28px;background:#161513">
+    <div style="display:flex;flex-direction:column;gap:clamp(28px,3vw,44px)">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">// 06 — Contact</span>
+      <h2 data-reveal="" style="margin:0;font-stretch:68%;font-weight:850;font-size:clamp(56px,12vw,220px);line-height:0.84;text-transform:uppercase">Let's<br>collaborate</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px 48px;padding-top:28px;border-top:1px solid rgba(240,236,228,0.14)">
+        <p style="margin:0;max-width:46ch;font-size:18px;line-height:1.5;color:#c9c4ba;text-wrap:pretty">{{ contactText }}</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">New inquiries</span>
+          <a href="{{ mailto }}" style="font-stretch:80%;font-weight:700;font-size:clamp(22px,2.2vw,32px);text-transform:uppercase;align-self:flex-start;padding:14px 24px;border-radius:999px;background:#F4320B;color:#f0ece4;transition:all .2s ease" style-hover="background:transparent;color:#f0ece4;box-shadow:inset 0 0 0 1px #F4320B">Get in touch →</a>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#9a958c">{{ email }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#9a958c">Socials</span>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
+              <a href="{{ s.href }}" style="font-size:20px">{{ s.name }} ↗</a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:48px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#9a958c">
+        <span>© {{ year }} {{ name }}</span>
+        <a href="#top" style="white-space:nowrap;flex-shrink:0;padding:10px 16px;border-radius:999px;background:rgba(12,11,10,0.85);border:1px solid rgba(240,236,228,0.18);transition:background .2s ease,border-color .2s ease;color:#f0ece4" style-hover="background:#F4320B;border-color:#F4320B;color:#f0ece4">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPlaceholders&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Contenido&quot;},&quot;workColumns&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;2&quot;,&quot;3&quot;],&quot;default&quot;:&quot;2&quot;,&quot;tsType&quot;:&quot;'2' | '3'&quot;,&quot;section&quot;:&quot;Work&quot;}}">
+class Component extends DCLogic {
+  state = { info: null, projects: null, filter: 'All', menuOpen: false };
+
+  componentDidMount() {
+    this.io = new IntersectionObserver((entries) => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target; el.style.opacity = '1'; el.style.transform = 'none';
+      this.io.unobserve(el);
+    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    this.scanReveal();
+    const base = 'uploads/';
+    const load = (file, varName) => fetch(base + file).then(r => r.text()).then(t => new Function(t + '\n;return ' + varName + ';')());
+    load('info.js', 'info').then(info => this.setState({ info })).catch(e => console.warn('info.js', e));
+    load('proyectos.js', 'projects').then(projects => this.setState({ projects })).catch(e => console.warn('proyectos.js', e));
+  }
+
+  componentDidUpdate() { this.scanReveal(); }
+  componentWillUnmount() { this.io && this.io.disconnect(); }
+  scanReveal() {
+    if (!this.io) return;
+    document.querySelectorAll('[data-reveal]:not([data-rv])').forEach((el, i) => {
+      el.setAttribute('data-rv', '1');
+      el.style.opacity = '0'; el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.2,1) ' + (i % 4) * 0.07 + 's, transform .9s cubic-bezier(.2,.7,.2,1) ' + (i % 4) * 0.07 + 's';
+      this.io.observe(el);
+    });
+  }
+
+  renderVals() {
+    const info = this.state.info || {};
+    const list = this.state.projects || [];
+    const showPh = this.props.showPlaceholders ?? true;
+    const cols = this.props.workColumns ?? '2';
+    const isPh = (v) => typeof v === 'string' && v.trim().startsWith('[');
+    const pad = (i) => String(i + 1).padStart(2, '0');
+    const keep = (arr, test) => (arr || []).filter(x => showPh || !test(x));
+
+    const name = info.name || '';
+    const parts = name.split(' ');
+    const hero = info.hero || {};
+    const about = info.about || {};
+    const process = info.process || [];
+
+    const experience = keep(info.experience, j => isPh(j.role)).map(j => ({ ...j }));
+    const testimonials = keep(info.testimonials, t => isPh(t.quote));
+    const clients = keep(info.clients, isPh).map(c => ({ name: c }));
+
+    const cats = ['All', ...new Set(list.map(p => p.category))];
+    const filter = this.state.filter;
+    const filtered = filter === 'All' ? list : list.filter(p => p.category === filter);
+    const resolve = (src) => !src ? '' : /^(https?:|\/|data:)/.test(src) ? src : 'uploads/' + src;
+
+    const email = info.contact?.email || '';
+    const socials = (info.socials || []).map(s => ({ name: s.name, href: s.url || '#' }));
+    const open = this.state.menuOpen;
+
+    return {
+      initials: parts.map(w => w[0]).join('').slice(0, 2),
+      name,
+      nameFirst: parts[0] || '',
+      nameLast: parts.slice(1).join(' '),
+      heroTitle: hero.title,
+      heroSubtitle: hero.subtitle,
+      heroVideo: resolve(hero.video),
+      hasHeroVideo: !!hero.video,
+      noHeroVideo: !hero.video,
+      toolsLine: (about.tools || []).join(' · '),
+      disciplinesLine: hero.disciplines || 'Videography · 3D/CGI · VFX · Post-production · Compositing',
+      location: hero.location || 'Bogotá, Colombia',
+      statement: about.tagline,
+      tools: (about.tools || []).map((t, i) => ({ name: t, num: pad(i) })),
+      process: process.map((s, i) => ({ ...s, num: pad(i) })),
+      experience, showExperience: experience.length > 0,
+      testimonials, showTestimonials: testimonials.length > 0,
+      clients, showClients: clients.length > 0,
+      categories: cats.map(c => {
+        const active = c === filter;
+        return {
+          name: c,
+          count: c === 'All' ? list.length : list.filter(p => p.category === c).length,
+          bg: active ? '#F4320B' : 'transparent',
+          color: active ? '#f0ece4' : '#9a958c',
+          border: active ? '#F4320B' : 'rgba(240,236,228,0.2)',
+          onClick: () => this.setState({ filter: c })
+        };
+      }),
+      gridCols: cols === '3' ? 'repeat(auto-fill,minmax(min(100%,300px),1fr))' : 'repeat(auto-fill,minmax(min(100%,460px),1fr))',
+      tileAspect: cols === '3' ? '4 / 5' : '16 / 10',
+      projects: filtered.map((p, i) => {
+        const src = resolve(p.src);
+        const isVideo = p.type === 'video';
+        return {
+          title: p.title, category: p.category, num: pad(i), src, poster: resolve(p.poster),
+          showVideo: !!src && isVideo, showImage: !!src && !isVideo, showPlaceholder: !src,
+          placeholderLabel: isVideo ? 'Video pendiente' : 'Imagen pendiente',
+          onEnter: (e) => { const v = e.currentTarget.querySelector('video'); if (v) v.play().catch(() => {}); },
+          onLeave: (e) => { const v = e.currentTarget.querySelector('video'); if (v) v.pause(); }
+        };
+      }),
+      contactText: info.contact?.text,
+      email: isPh(email) ? 'Email pendiente' : email,
+      mailto: 'mailto:' + email,
+      socials,
+      navLinks: [['Work', '#work'], ['Process', '#process'], ['Experience', '#experience'], ['Clients', '#clients'], ['About', '#about'], ['Contact', '#contact']]
+        .map(([label, href], i) => ({ label, href, num: pad(i) })),
+      menuOpen: open,
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      overlayOpacity: open ? 1 : 0,
+      overlayPE: open ? 'auto' : 'none',
+      panelX: open ? '0%' : '100%',
+      year: new Date().getFullYear()
+    };
+  }
+}
+</script>
+</body>
+</html>
