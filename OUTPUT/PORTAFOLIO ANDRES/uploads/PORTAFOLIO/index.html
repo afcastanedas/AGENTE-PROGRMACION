@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrés Castañeda — Digital Creator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <!-- index.js llena esto con info.name -->
+    <h1 class="logo" id="site-name"></h1>
+    <!-- Nav overlay a pantalla completa (patrón de amyosburn.com), no solo para mobile -->
+    <button type="button" id="nav-toggle" aria-label="Abrir menú">Menu</button>
+  </header>
+
+  <!-- Panel lateral (slide-out), no overlay a pantalla completa -->
+  <div id="nav-overlay" class="hidden">
+    <div id="nav-panel">
+      <button type="button" id="nav-close" aria-label="Cerrar menú">Close</button>
+      <nav id="main-nav">
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero: video/imagen de fondo + titular. index.js no toca esta sección -->
+  <section id="hero">
+    <!-- TODO: reemplazar por tu reel/video real; placeholder visual mientras tanto -->
+    <div class="hero-media placeholder">Reel / video de presentación</div>
+    <!-- Cuando tengas tu reel, descomenta esto y borra el div.placeholder de arriba:
+    <video class="hero-media" src="reel.mp4" autoplay muted loop playsinline></video>
+    -->
+    <!-- index.js llena title/subtitle con info.hero -->
+    <h2 class="hero-title" id="hero-title"></h2>
+    <p class="hero-subtitle" id="hero-subtitle"></p>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <!-- index.js llena esto con info.about -->
+    <p class="tagline" id="about-tagline"></p>
+    <div class="tool-tags" id="tool-tags"></div>
+  </section>
+
+  <section id="process">
+    <h2>Process</h2>
+    <!-- index.js llena esto con info.process -->
+    <div class="process-grid" id="process-grid"></div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <!-- index.js la llena con info.experience (placeholder hasta que tengas roles reales) -->
+    <div id="experience-list"></div>
+  </section>
+
+  <section id="work">
+    <h2>Work</h2>
+    <!-- index.js la llena con "All" + las categorías que existan en proyectos.js -->
+    <div id="work-filters"></div>
+    <!-- index.js llena esto con una card por cada proyecto de proyectos.js -->
+    <div id="galeria-proyectos"></div>
+  </section>
+
+  <section id="testimonials">
+    <!-- index.js la llena con info.testimonials (placeholder) -->
+    <div id="testimonials-list"></div>
+  </section>
+
+  <section id="clients">
+    <h2>Clients</h2>
+    <!-- index.js la llena con info.clients (placeholder) -->
+    <div id="clients-grid"></div>
+  </section>
+
+  <section id="awards">
+    <h2>Awards &amp; Recognition</h2>
+    <!-- index.js la llena con info.awards (placeholder) -->
+    <div id="awards-list"></div>
+  </section>
+
+  <section id="contact">
+    <h2>Let's collaborate</h2>
+    <!-- index.js llena esto con info.contact -->
+    <p id="contact-text"></p>
+    <a class="cta" id="contact-cta" href="">Get in touch</a>
+  </section>
+
+  <footer>
+    <!-- index.js llena esto con info.socials -->
+    <p id="footer-socials"></p>
+  </footer>
+
+  <script src="info.js"></script>
+  <script src="proyectos.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

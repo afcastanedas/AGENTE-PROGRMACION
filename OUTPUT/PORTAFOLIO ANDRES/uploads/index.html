@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrés Castañeda — Digital Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header">
+    <!-- index.js llena esto con las iniciales de info.name -->
+    <a href="#top" class="logo" id="site-initials"></a>
+    <div class="header-actions">
+      <a href="#contact" class="pill">Get in touch</a>
+      <button type="button" class="pill" id="nav-toggle" aria-label="Abrir menú">
+        <span>Menu</span>
+        <span class="burger"><span></span><span></span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Panel lateral (slide-out) -->
+  <div id="nav-overlay"></div>
+  <aside id="nav-panel" aria-hidden="true">
+    <button type="button" class="pill" id="nav-close" aria-label="Cerrar menú">Close</button>
+    <!-- index.js llena el menú con NAV_LINKS -->
+    <nav id="main-nav"></nav>
+    <div class="nav-socials" id="nav-socials"></div>
+  </aside>
+
+  <!-- Hero: banner de color con el nombre gigante -->
+  <section id="top" class="hero">
+    <div class="hero-content">
+      <div class="eyebrow-dot">
+        <span class="dot"></span>
+        <span id="hero-subtitle"></span>
+      </div>
+      <h1 class="hero-name reveal">
+        <span id="name-first"></span>
+        <span id="name-last" class="name-last"></span>
+      </h1>
+      <div class="hero-meta">
+        <p class="hero-title" id="hero-title"></p>
+        <div class="meta-item"><span>Based in</span><span class="meta-value" id="hero-location"></span></div>
+        <div class="meta-item"><span>Disciplines</span><span class="meta-value" id="hero-disciplines"></span></div>
+        <a href="#work" class="mono hero-scroll">↓ Selected work</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="block">
+    <div class="work-head reveal">
+      <div class="section-head">
+        <span class="eyebrow">// 01 — Featured work</span>
+        <h2 class="section-title">Selected work</h2>
+      </div>
+      <!-- index.js la llena con "All" + las categorías que existan en proyectos.js -->
+      <div id="work-filters"></div>
+    </div>
+    <!-- index.js llena esto con una card por cada proyecto de proyectos.js -->
+    <div id="galeria-proyectos"></div>
+  </section>
+
+  <section id="process" class="block">
+    <div class="section-head reveal">
+      <span class="eyebrow">// 02 — Process</span>
+      <h2 class="section-title">From idea to final frame</h2>
+    </div>
+    <!-- index.js llena esto con info.process -->
+    <div class="rows" id="process-grid"></div>
+  </section>
+
+  <section id="experience" class="block">
+    <div class="section-head reveal">
+      <span class="eyebrow">// 03 — Experience</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <!-- index.js la llena con info.experience -->
+    <div class="rows" id="experience-list"></div>
+  </section>
+
+  <section class="block statement">
+    <!-- index.js llena esto con info.about.tagline -->
+    <p class="statement-text reveal" id="about-tagline"></p>
+  </section>
+
+  <section id="testimonials" class="block">
+    <!-- index.js la llena con info.testimonials -->
+    <div id="testimonials-list"></div>
+  </section>
+
+  <section id="clients" class="block">
+    <div class="section-head reveal">
+      <span class="eyebrow">// 04 — Clients</span>
+      <h2 class="section-title">Clients</h2>
+    </div>
+    <!-- index.js la llena con info.clients -->
+    <div class="clients-grid reveal" id="clients-grid"></div>
+  </section>
+
+  <section id="about" class="block">
+    <div class="about-grid">
+      <img class="about-photo reveal" src="PORTAFOLIO/media/retrato.png" alt="Andrés Castañeda">
+      <div class="about-body">
+        <span class="eyebrow">// 05 — About</span>
+        <h2 class="about-name">
+          <span id="about-first"></span>
+          <span id="about-last" class="name-last"></span>
+        </h2>
+        <div class="toolkit">
+          <span class="eyebrow">Toolkit</span>
+          <!-- index.js llena esto con info.about.tools -->
+          <div class="rows" id="tool-tags"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <span class="eyebrow">// 06 — Contact</span>
+    <h2 class="contact-title reveal">Let's<br>collaborate</h2>
+    <div class="contact-grid">
+      <!-- index.js llena esto con info.contact -->
+      <p id="contact-text"></p>
+      <div class="contact-col">
+        <span class="eyebrow">New inquiries</span>
+        <a class="cta" id="contact-cta" href="">Get in touch →</a>
+        <span class="mono muted" id="contact-email"></span>
+      </div>
+      <div class="contact-col">
+        <span class="eyebrow">Socials</span>
+        <!-- index.js llena esto con info.socials -->
+        <div id="footer-socials"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footer-copy"></span>
+      <a href="#top" class="pill">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Detalle de proyecto: index.js lo llena al hacer click en una card de Work -->
+  <div id="project-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pm-title">
+    <div class="pm-bar">
+      <span class="eyebrow" id="pm-counter"></span>
+      <div class="pm-actions">
+        <button type="button" class="pill" id="pm-prev" aria-label="Proyecto anterior">← Prev</button>
+        <button type="button" class="pill" id="pm-next" aria-label="Proyecto siguiente">Next →</button>
+        <button type="button" class="pill" id="pm-close" aria-label="Cerrar proyecto">Close ✕</button>
+      </div>
+    </div>
+    <div class="pm-scroll" id="pm-scroll">
+      <header class="pm-head">
+        <span class="pm-category" id="pm-category"></span>
+        <h2 class="pm-title" id="pm-title"></h2>
+      </header>
+      <div class="pm-media" id="pm-media"></div>
+      <div class="pm-info">
+        <dl class="pm-meta" id="pm-meta"></dl>
+        <div class="pm-description" id="pm-description"></div>
+      </div>
+      <div class="pm-gallery" id="pm-gallery"></div>
+      <button type="button" class="pm-next-project" id="pm-next-project">
+        <span class="eyebrow">Next project</span>
+        <span class="pm-next-title" id="pm-next-title"></span>
+      </button>
+    </div>
+  </div>
+
+  <script src="info.js"></script>
+  <script src="proyectos.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

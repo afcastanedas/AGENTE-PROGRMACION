@@ -1,0 +1,440 @@
+/* Paleta oscura: fondo negro, texto blanco, acento naranja.
+   Estructura de nav overlay-fullscreen y layout siguen inspirados en el patrón de
+   amyosburn.com (ver OUTPUT/analisis_sitios_landing/resumenes/amyosburn.md). */
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #181818;
+  --text: #f5f5f5;
+  --muted: #a0a0a0;
+  --accent: #ff5a36;
+  --border: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+#nav-toggle,
+#nav-close {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+#nav-toggle:hover,
+#nav-close:hover {
+  color: var(--accent);
+}
+
+/* Nav tipo panel lateral (slide-out), no a pantalla completa: un fondo oscuro detrás
+   atenúa la página, y el panel entra desde la derecha. Oculto por defecto con .hidden,
+   se abre con .nav-open (mismo patrón .hidden que el resto del proyecto). */
+#nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#nav-overlay.nav-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#nav-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(320px, 85vw);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  padding: 2rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+}
+
+#nav-overlay.nav-open #nav-panel {
+  transform: translateX(0);
+}
+
+#nav-close {
+  align-self: flex-end;
+}
+
+#main-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+#main-nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+#main-nav a:hover {
+  color: var(--accent);
+}
+
+section {
+  padding: 5rem 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#hero {
+  max-width: none;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+}
+
+.hero-media.placeholder {
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(45deg, var(--surface), var(--surface) 10px, #222222 10px, #222222 20px);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Entrada visible al cargar la página, sin depender de hover/click */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  max-width: 14ch;
+  animation: fade-up 0.6s ease both;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  animation: fade-up 0.6s ease 0.15s both;
+}
+
+#about h2,
+#work h2,
+#contact h2,
+#experience h2,
+#clients h2,
+#awards h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.tagline {
+  max-width: 50ch;
+  color: var(--muted);
+  font-size: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tool-tag {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+#process h2 {
+  margin-bottom: 2rem;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+
+.process-step {
+  border-top: 2px solid var(--accent);
+  padding-top: 0.75rem;
+}
+
+.process-number {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.process-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.process-step p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+#experience-list {
+  display: grid;
+  gap: 2rem;
+}
+
+.experience-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.experience-period {
+  display: block;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0.25rem 0 0.6rem;
+}
+
+.experience-item p {
+  color: var(--muted);
+  max-width: 65ch;
+}
+
+.testimonial {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.5rem;
+}
+
+.testimonial-quote {
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style: italic;
+  max-width: 55ch;
+}
+
+.testimonial cite {
+  display: block;
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
+#clients-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+}
+
+.client-name {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#awards-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.award-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.award-year {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+#work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 0.4rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+}
+
+.filter-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#galeria-proyectos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Sin tarjeta/borde: la foto/video es el protagonista, la UI queda discreta debajo */
+.project-card {
+  cursor: pointer;
+}
+
+.project-media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  background: var(--surface);
+  filter: grayscale(0.15);
+  transition: filter 0.3s ease, transform 0.4s ease;
+}
+
+.project-card:hover .project-media {
+  filter: grayscale(0);
+  transform: scale(1.015);
+}
+
+.project-media.placeholder {
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(45deg, var(--surface), var(--surface) 10px, #222222 10px, #222222 20px);
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.project-info {
+  padding: 0.9rem 0 0;
+}
+
+.project-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.project-category {
+  color: var(--accent);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+#contact {
+  text-align: center;
+}
+
+#contact p {
+  max-width: 50ch;
+  margin: 0 auto 2rem;
+  color: var(--muted);
+}
+
+.cta {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  transition: opacity 0.2s ease;
+}
+
+.cta:hover {
+  opacity: 0.8;
+}
+
+footer {
+  padding: 2rem 2.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  header { padding: 1.2rem 1.25rem; }
+  section { padding: 3.5rem 1.25rem; }
+  #nav-close { top: 1.25rem; right: 1.25rem; }
+}
