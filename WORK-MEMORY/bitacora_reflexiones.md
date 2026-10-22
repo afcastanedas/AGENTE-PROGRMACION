@@ -81,3 +81,11 @@ tenazmente perdido.
 ## 2026-09-25
 
 Aprendí la lógica para hacer validación del login, etc.
+
+## 2026-10-16
+
+Aprendí cómo integrar sistemas de tablas usando plataformas como Supabase para el manejo de datos.
+
+## 2026-10-22
+
+Reforcé un poco algunos métodos de array, porque el profe volvió a explicarlos de forma breve en clase.

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- CDN: trae la librería de Supabase ANTES que nuestros propios
+       scripts — sin esta línea, "supabase.createClient" no existiría
+       todavía cuando supabaseClient.js intente usarlo -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    #resultado {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 12px;
+    }
+    .card-body h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+    .card-body p {
+      margin: 4px 0;
+      font-size: 0.85rem;
+      color: #444;
+    }
+    .precio {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .agotado {
+      color: #b00020;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btn-traer">Traer productos</button>
+
+  <form id="form-agregar">
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="descripcion" placeholder="Descripción" required>
+    <input type="number" name="precio" placeholder="Precio" required>
+    <input type="number" name="unidades" placeholder="Unidades" required>
+    <input type="number" name="descuento" placeholder="Descuento (0 a 1)" step="0.01" required>
+    <label><input type="checkbox" name="disponible" checked> Disponible</label>
+    <input type="text" name="categorias" placeholder="Categorías separadas por coma">
+    <input type="text" name="imagen" placeholder="URL de la imagen">
+    <button type="submit">Agregar Producto</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <!-- supabaseClient.js crea "db" (sección 4.3): el cliente ya
+       conectado a tu proyecto de Supabase. Lo vamos a usar en
+       prueba2.js, por eso tiene que cargarse ANTES que ese archivo -->
+  <script src="js/supabaseClient.js"></script>
+  <!-- prueba2.js: aquí escribes el código de los Pasos 2, 3 y 4 -->
+  <script src="js/prueba2.js"></script>
+</body>
+</html>
