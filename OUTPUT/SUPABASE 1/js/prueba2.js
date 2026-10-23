@@ -39,6 +39,29 @@ const productosReferencia = [
   }
 ];
 
+// Dibuja un array de productos como tarjetas dentro de #resultado.
+// La usan tanto "Traer productos" como "Buscar" — mismo render, distinto
+// origen de los datos (todos vs. filtrados por nombre).
+function mostrarProductos(lista) {
+  document.getElementById('resultado').innerHTML = lista.map(producto => {
+    const { nombre, descripcion, precio, unidades, descuento, disponible, categorias, imagen } = producto;
+
+    return `
+    <div class="card">
+      <img src="${imagen}" alt="${nombre}">
+      <div class="card-body">
+        <h3>${nombre}</h3>
+        <p>${descripcion}</p>
+        <p class="precio">$${precio.toLocaleString('es-CO')}</p>
+        <p>Descuento: ${descuento * 100}%</p>
+        <p>${disponible ? 'Unidades: ' + unidades : '<span class="agotado">Agotado</span>'}</p>
+        <p>${categorias.join(', ')}</p>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
 document.getElementById('btn-traer').addEventListener('click', async () => {
 
   // Mismo "async" que en el Paso 2: esta función necesita "await" para
@@ -59,30 +82,32 @@ document.getElementById('btn-traer').addEventListener('click', async () => {
     return;
   }
 
-  // JSON.stringify(data, null, 2) convierte el array completo a texto,
-  // con sangría (el "2") para que se lea ordenado. Esta línea SÍ es
-  // sincrónica (no necesita await) — ya no estamos esperando nada de
-  // Supabase, solo transformando el array "data" que ya llegó.
-  document.getElementById('resultado').innerHTML = data.map(producto => {
-    // Destructuring: sacamos cada propiedad del objeto "producto" y la
-    // guardamos en su propia constante, en vez de escribir "producto.algo"
-    // cada vez. Mismo objeto, solo una forma distinta de leerlo.
-    const { nombre, descripcion, precio, unidades, descuento, disponible, categorias, imagen } = producto;
+  mostrarProductos(data);
+});
 
-    return `
-    <div class="card">
-      <img src="${imagen}" alt="${nombre}">
-      <div class="card-body">
-        <h3>${nombre}</h3>
-        <p>${descripcion}</p>
-        <p class="precio">$${precio.toLocaleString('es-CO')}</p>
-        <p>Descuento: ${descuento * 100}%</p>
-        <p>${disponible ? 'Unidades: ' + unidades : '<span class="agotado">Agotado</span>'}</p>
-        <p>${categorias.join(', ')}</p>
-      </div>
-    </div>
-  `;
-  }).join('');
+// Buscar productos por nombre (sección 5.2 de la guía): .ilike() filtra
+// en el servidor, insensible a mayúsculas/minúsculas. Los símbolos "%"
+// significan "cualquier texto antes/después" — equivalente a
+// .toLowerCase().includes(texto), pero corriendo en Supabase, no en el navegador.
+document.getElementById('btn-buscar').addEventListener('click', async () => {
+  const texto = document.getElementById('input-buscar').value.trim();
+
+  const { data, error } = await db
+    .from('productos_practica')
+    .select('*')
+    .ilike('nombre', `%${texto}%`);
+
+  if (error) {
+    document.getElementById('resultado').textContent = 'Error: ' + error.message;
+    return;
+  }
+
+  if (data.length === 0) {
+    document.getElementById('resultado').textContent = 'No se encontraron productos con ese nombre.';
+    return;
+  }
+
+  mostrarProductos(data);
 });
 
 //crud//
