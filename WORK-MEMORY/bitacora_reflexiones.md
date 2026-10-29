@@ -89,3 +89,7 @@ Aprendí cómo integrar sistemas de tablas usando plataformas como Supabase para
 ## 2026-10-22
 
 Reforcé un poco algunos métodos de array, porque el profe volvió a explicarlos de forma breve en clase.
+
+## 2026-10-29
+
+Me costó entender los errores que me aparecían en consola.
