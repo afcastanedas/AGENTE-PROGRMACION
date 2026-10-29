@@ -1,21 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de productos</title>
   <!-- CDN: trae la librería de Supabase ANTES que nuestros propios
        scripts — sin esta línea, "supabase.createClient" no existiría
        todavía cuando supabaseClient.js intente usarlo -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      background: #f4f4f7;
+      color: #222;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+    .seccion {
+      background: #fff;
+      border: 1px solid #e3e3e8;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .seccion h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      color: #555;
+    }
+    .busqueda {
+      display: flex;
+      gap: 8px;
+    }
+    .busqueda input {
+      flex: 1;
+    }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .campo label {
+      font-size: 0.75rem;
+      color: #666;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+    button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #3b5bdb;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2f49ad;
+    }
+    button:disabled {
+      background: #a9b4e0;
+      cursor: wait;
+    }
+    .vacio {
+      color: #666;
+      font-size: 0.9rem;
+      padding: 20px 0;
+      text-align: center;
+    }
     #resultado {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
+      margin-top: 12px;
+    }
+    #resultado:empty {
+      display: block;
+      color: #888;
+      font-size: 0.9rem;
     }
     .card {
       border: 1px solid #ddd;
       border-radius: 8px;
       overflow: hidden;
-      font-family: sans-serif;
+      background: #fff;
     }
     .card img {
       width: 100%;
@@ -37,34 +130,138 @@
     .precio {
       font-weight: bold;
       font-size: 1.1rem;
+      color: #2f49ad;
     }
     .agotado {
       color: #b00020;
       font-weight: bold;
     }
+    .card-id {
+      font-size: 0.75rem;
+      color: #767676;
+    }
+    .card-acciones {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .card-acciones button {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 0.8rem;
+    }
+    .btn-eliminar {
+      background: #b00020;
+    }
+    .btn-eliminar:hover {
+      background: #86001a;
+    }
+    #mensaje {
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
 
-  <button id="btn-traer">Traer productos</button>
+  <h1>Catálogo de productos</h1>
 
-  <div>
-    <input type="text" id="input-buscar" placeholder="Buscar por nombre...">
-    <button id="btn-buscar">Buscar</button>
+  <div class="seccion">
+    <h2>Ver productos</h2>
+    <button id="btn-traer">Traer productos</button>
+    <div class="busqueda" style="margin-top:10px;">
+      <input type="text" id="input-buscar" placeholder="Buscar por nombre...">
+      <button id="btn-buscar">Buscar</button>
+    </div>
   </div>
 
-  <form id="form-agregar">
-    <input type="text" name="nombre" placeholder="Nombre" required>
-    <input type="text" name="descripcion" placeholder="Descripción" required>
-    <input type="number" name="precio" placeholder="Precio" required>
-    <input type="number" name="unidades" placeholder="Unidades" required>
-    <input type="number" name="descuento" placeholder="Descuento (0 a 1)" step="0.01" required>
-    <label><input type="checkbox" name="disponible" checked> Disponible</label>
-    <input type="text" name="categorias" placeholder="Categorías separadas por coma">
-    <input type="text" name="imagen" placeholder="URL de la imagen">
-    <button type="submit">Agregar Producto</button>
-  </form>
+  <div class="seccion">
+    <h2>Agregar producto</h2>
+    <form id="form-agregar">
+      <div class="campo">
+        <label for="agregar-nombre">Nombre</label>
+        <input type="text" id="agregar-nombre" name="nombre" placeholder="Audífonos Bluetooth X200" required>
+      </div>
+      <div class="campo">
+        <label for="agregar-descripcion">Descripción</label>
+        <input type="text" id="agregar-descripcion" name="descripcion" placeholder="Breve descripción del producto" required>
+      </div>
+      <div class="campo">
+        <label for="agregar-precio">Precio (COP)</label>
+        <input type="number" id="agregar-precio" name="precio" placeholder="150000" required>
+      </div>
+      <div class="campo">
+        <label for="agregar-unidades">Unidades</label>
+        <input type="number" id="agregar-unidades" name="unidades" placeholder="25" required>
+      </div>
+      <div class="campo">
+        <label for="agregar-descuento">Descuento (0 a 1)</label>
+        <input type="number" id="agregar-descuento" name="descuento" placeholder="0.10 = 10%" step="0.01" required>
+      </div>
+      <div class="campo">
+        <label for="agregar-categorias">Categorías</label>
+        <input type="text" id="agregar-categorias" name="categorias" placeholder="ej: hogar, oferta">
+      </div>
+      <div class="campo">
+        <label for="agregar-imagen">URL de la imagen</label>
+        <input type="text" id="agregar-imagen" name="imagen" placeholder="https://...">
+      </div>
+      <label><input type="checkbox" name="disponible"> Disponible</label>
+      <button type="submit">Agregar Producto</button>
+    </form>
+  </div>
 
+  <div class="seccion">
+    <h2>Modificar producto</h2>
+    <p style="font-size:0.8rem; color:#777; margin-top:-6px;">
+      Deja en blanco los campos que no quieras cambiar — solo se actualiza lo que escribas.
+    </p>
+    <form id="form-modificar">
+      <div class="campo">
+        <label for="modificar-id">id del producto</label>
+        <input type="number" id="modificar-id" name="id" required>
+      </div>
+      <div class="campo">
+        <label for="modificar-nombre">Nombre</label>
+        <input type="text" id="modificar-nombre" name="nombre">
+      </div>
+      <div class="campo">
+        <label for="modificar-descripcion">Descripción</label>
+        <input type="text" id="modificar-descripcion" name="descripcion">
+      </div>
+      <div class="campo">
+        <label for="modificar-precio">Precio (COP)</label>
+        <input type="number" id="modificar-precio" name="precio">
+      </div>
+      <div class="campo">
+        <label for="modificar-unidades">Unidades</label>
+        <input type="number" id="modificar-unidades" name="unidades">
+      </div>
+      <div class="campo">
+        <label for="modificar-descuento">Descuento (0 a 1)</label>
+        <input type="number" id="modificar-descuento" name="descuento" step="0.01">
+      </div>
+      <div class="campo">
+        <label for="modificar-categorias">Categorías</label>
+        <input type="text" id="modificar-categorias" name="categorias" placeholder="ej: hogar, oferta">
+      </div>
+      <div class="campo">
+        <label for="modificar-imagen">URL de la imagen</label>
+        <input type="text" id="modificar-imagen" name="imagen">
+      </div>
+      <div class="campo">
+        <label for="modificar-disponible">Disponible</label>
+        <select id="modificar-disponible" name="disponible">
+          <option value="">No cambiar</option>
+          <option value="true">Sí</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <button type="submit">Guardar cambios</button>
+    </form>
+  </div>
+
+  <div id="mensaje"></div>
   <div id="resultado"></div>
 
   <!-- supabaseClient.js crea "db" (sección 4.3): el cliente ya
