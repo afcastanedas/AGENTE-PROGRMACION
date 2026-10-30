@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi cuenta</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        min-height: 100vh;
+        margin: 0;
+        font-family: sans-serif;
+        background: #f4f4f7;
+        color: #222;
+      }
+      aside {
+        width: 200px;
+        flex-shrink: 0;
+        background: #fff;
+        border-right: 1px solid #e3e3e8;
+        padding: 20px 12px;
+      }
+      aside h1 {
+        font-size: 1.1rem;
+        margin: 0 0 20px;
+      }
+      .nav-item {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 10px 12px;
+        border: none;
+        background: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-bottom: 4px;
+        color: #333;
+      }
+      .nav-item:hover {
+        background: #eef0fb;
+      }
+      .nav-item.activo {
+        background: #3b5bdb;
+        color: #fff;
+      }
+      main {
+        flex: 1;
+        padding: 24px;
+        max-width: 500px;
+      }
+      .vista {
+        display: none;
+      }
+      .vista.visible {
+        display: block;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      label {
+        font-size: 0.85rem;
+        color: #555;
+      }
+      input {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+      button[type="submit"],
+      #btn-logout {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        background: #3b5bdb;
+        color: #fff;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-top: 4px;
+      }
+      #btn-logout {
+        background: #b00020;
+      }
+    </style>
+  </head>
+  <body>
+
+    <aside>
+      <h1>Mi cuenta</h1>
+      <button type="button" class="nav-item activo" data-vista="cuenta">Mi cuenta</button>
+    </aside>
+
+    <main>
+      <section id="vista-cuenta" class="vista visible">
+        <h2>Mi cuenta</h2>
+        <p id="estado-sesion">No has iniciado sesión.</p>
+
+        <!-- Visible solo con sesión activa: tus propios datos, listos
+             para editar. Lo muestra/oculta mostrarEstadoSesion() en JS. -->
+        <div id="bloque-perfil" style="display:none;">
+          <form id="form-perfil">
+            <label for="perfil-nombre">Nombre</label>
+            <input id="perfil-nombre" type="text" required />
+
+            <label for="perfil-correo">Correo</label>
+            <input id="perfil-correo" type="email" required />
+
+            <button type="submit">Guardar cambios</button>
+          </form>
+          <button id="btn-logout" type="button">Cerrar sesión</button>
+        </div>
+
+        <!-- Visible solo SIN sesión activa: login/registro. -->
+        <div id="bloque-invitado">
+          <form id="form-registro">
+            <h3>Registrarme</h3>
+            <label for="registro-nombre">Nombre</label>
+            <input id="registro-nombre" type="text" required />
+
+            <label for="registro-correo">Correo</label>
+            <input id="registro-correo" type="email" required />
+
+            <label for="registro-password">Contraseña</label>
+            <input id="registro-password" type="password" minlength="6" required />
+
+            <button type="submit">Crear cuenta</button>
+          </form>
+
+          <form id="form-login">
+            <h3>Iniciar sesión</h3>
+            <label for="login-correo">Correo</label>
+            <input id="login-correo" type="email" required />
+
+            <label for="login-password">Contraseña</label>
+            <input id="login-password" type="password" required />
+
+            <button type="submit">Iniciar sesión</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/cliente.js"></script>
+  </body>
+</html>

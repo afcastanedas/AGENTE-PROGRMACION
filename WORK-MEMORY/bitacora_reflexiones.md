@@ -93,3 +93,11 @@ Reforcé un poco algunos métodos de array, porque el profe volvió a explicarlo
 ## 2026-10-29
 
 Me costó entender los errores que me aparecían en consola.
+
+## 2026-10-30
+
+Avanzando en Supabase Auth (`cliente.html`/`js/cliente.js`): llegué hasta el registro de
+cuentas (`db.auth.signUp()` + inserción del perfil en la tabla `clientes practica`). Quedó
+funcionando el registro. Lo que sigue la próxima sesión: probar el formulario de inicio de
+sesión (`form-login`) y el botón de cerrar sesión (`btn-logout`), que todavía no tienen
+código conectado.
