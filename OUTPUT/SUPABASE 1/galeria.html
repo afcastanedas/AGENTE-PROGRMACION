@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería de Productos</title>
+  <style>
+    /* ================================================
+       RESET Y VARIABLES
+       Las variables CSS (--nombre) permiten reutilizar
+       colores y valores en todo el archivo.
+    ================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --color-fondo:      #f5f0eb;
+      --color-superficie: #fffcf8;
+      --color-texto:      #1a1208;
+      --color-acento:     #c8522a;
+      --color-borde:      #e0d8ce;
+      --sombra:           0 4px 24px rgba(26, 18, 8, 0.08);
+      --radio-borde:      14px;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: var(--color-texto);
+      color: white;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    #btn-carrito {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--color-acento);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    #btn-carrito:hover {
+      background-color: #a8401e;
+      transform: translateY(-1px);
+    }
+    #contador-badge {
+      background-color: white;
+      color: var(--color-acento);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ===== SECCIÓN PRINCIPAL ===== */
+    main {
+      padding: 48px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .seccion-titulo { margin-bottom: 36px; }
+    .seccion-titulo h2 { font-size: 2rem; margin-bottom: 6px; }
+    .seccion-titulo p  { color: #8a7d6b; }
+
+    /* ===== GALERÍA ===== */
+    #galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 28px;
+    }
+
+    /* ===== CARD DE PRODUCTO ===== */
+    .card {
+      background-color: var(--color-superficie);
+      border-radius: var(--radio-borde);
+      overflow: hidden;
+      box-shadow: var(--sombra);
+      border: 1px solid var(--color-borde);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(26, 18, 8, 0.13);
+    }
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-body {
+      padding: 18px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .card-nombre      { font-weight: 600; font-size: 1rem; }
+    .card-descripcion { font-size: 0.85rem; color: #8a7d6b; flex: 1; }
+    .card-precio      { font-size: 1.25rem; font-weight: 700; color: var(--color-acento); }
+    .card-agotado {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #b00020;
+    }
+
+    /* ===== BOTONES +/− Y "AGREGAR" ===== */
+    .card-acciones {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px 18px;
+      border-top: 1px solid var(--color-borde);
+    }
+    .btn-restar, .btn-sumar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--color-borde);
+      background-color: var(--color-fondo);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-restar:hover { background-color: #fde4da; border-color: var(--color-acento); color: var(--color-acento); }
+    .btn-sumar:hover  { background-color: #d7ede0; border-color: #4a7c59; color: #4a7c59; }
+    .btn-restar:disabled, .btn-sumar:disabled, .btn-agregar:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .cantidad-display {
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-width: 28px;
+      text-align: center;
+    }
+    .btn-agregar {
+      margin-left: auto;
+      background-color: var(--color-texto);
+      color: white;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .btn-agregar:hover:not(:disabled) { background-color: var(--color-acento); }
+
+    /* ===== PANEL DEL CARRITO ===== */
+    #panel-carrito {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100vh;
+      background-color: var(--color-superficie);
+      box-shadow: -8px 0 40px rgba(26, 18, 8, 0.15);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #panel-carrito.abierto { right: 0; }
+    .carrito-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--color-borde);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--color-texto);
+      color: white;
+    }
+    #btn-cerrar-carrito {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #lista-carrito {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .item-carrito {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background-color: var(--color-fondo);
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid var(--color-borde);
+    }
+    .item-carrito img   { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; }
+    .item-info          { flex: 1; }
+    .item-info strong   { font-size: 0.9rem; display: block; }
+    .item-info span     { font-size: 0.82rem; color: #8a7d6b; }
+    .item-qty           { font-weight: 700; color: var(--color-acento); }
+    .carrito-vacio      { text-align: center; color: #8a7d6b; padding: 40px; }
+    .carrito-footer     { padding: 20px 24px; border-top: 1px solid var(--color-borde); }
+    .total-row          { display: flex; justify-content: space-between; margin-bottom: 16px; }
+    #total-valor        { font-size: 1.5rem; font-weight: 700; color: var(--color-acento); }
+    #btn-checkout {
+      width: 100%;
+      background-color: #4a7c59;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    #btn-checkout:hover { background-color: #375f43; }
+
+    /* ===== OVERLAY ===== */
+    #overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(26, 18, 8, 0.35);
+      z-index: 150;
+      backdrop-filter: blur(2px);
+    }
+    #overlay.activo { display: block; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      main   { padding: 32px 16px; }
+      header { padding: 14px 16px; }
+      #panel-carrito { width: 100%; right: -100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🛍️ MiTienda</h1>
+  <button id="btn-carrito">
+    🛒 Carrito
+    <span id="contador-badge">0</span>
+  </button>
+</header>
+
+<main>
+  <div class="seccion-titulo">
+    <h2>Nuestros Productos</h2>
+    <p>Selecciona la cantidad de cada producto y agrégalo al carrito.</p>
+  </div>
+
+  <!-- La galería se construye aquí con JavaScript -->
+  <div id="galeria"></div>
+</main>
+
+<div id="overlay"></div>
+
+<div id="panel-carrito">
+  <div class="carrito-header">
+    <h3>Tu Carrito</h3>
+    <button id="btn-cerrar-carrito">✕</button>
+  </div>
+  <div id="lista-carrito">
+    <p class="carrito-vacio">Tu carrito está vacío 🛒</p>
+  </div>
+  <div class="carrito-footer">
+    <div class="total-row">
+      <span class="total-label">Total</span>
+      <span class="total-valor" id="total-valor">$0</span>
+    </div>
+    <button id="btn-checkout">Proceder al pago →</button>
+  </div>
+</div>
+
+<script src="galeria.js"></script>
+</body>
+</html>

@@ -160,11 +160,64 @@
       font-size: 0.9rem;
       margin-top: 8px;
     }
+    #btn-logout-admin {
+      background: #b00020;
+    }
+    #btn-logout-admin:hover {
+      background: #86001a;
+    }
   </style>
 </head>
 <body>
 
   <h1>Catálogo de productos</h1>
+
+  <div class="seccion">
+    <h2>Acceso de administrador</h2>
+    <p id="estado-sesion-admin">No has iniciado sesión.</p>
+
+    <!-- Visible solo SIN sesión de administrador confirmada. -->
+    <div id="bloque-login-admin">
+      <form id="form-registro-admin">
+        <h3>Registrarme como administrador</h3>
+        <div class="campo">
+          <label for="registro-admin-nombre">Nombre</label>
+          <input type="text" id="registro-admin-nombre" required>
+        </div>
+        <div class="campo">
+          <label for="registro-admin-correo">Correo</label>
+          <input type="email" id="registro-admin-correo" required>
+        </div>
+        <div class="campo">
+          <label for="registro-admin-password">Contraseña</label>
+          <input type="password" id="registro-admin-password" minlength="6" required>
+        </div>
+        <button type="submit">Crear cuenta</button>
+      </form>
+
+      <form id="form-login-admin">
+        <h3>Iniciar sesión</h3>
+        <div class="campo">
+          <label for="login-admin-correo">Correo</label>
+          <input type="email" id="login-admin-correo" required>
+        </div>
+        <div class="campo">
+          <label for="login-admin-password">Contraseña</label>
+          <input type="password" id="login-admin-password" required>
+        </div>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+    </div>
+
+    <!-- Visible solo CON sesión de administrador confirmada (verificada
+         contra la tabla admin_practica, no solo "hay sesión"). -->
+    <button id="btn-logout-admin" type="button" style="display:none;">Cerrar sesión</button>
+  </div>
+
+  <!-- Todo el CRUD queda oculto hasta confirmar que hay una sesión de
+       administrador real — lo muestra/oculta mostrarEstadoSesionAdmin()
+       en admin.js. -->
+  <div id="panel-crud" style="display:none;">
 
   <div class="seccion">
     <h2>Ver productos</h2>
@@ -263,6 +316,8 @@
 
   <div id="mensaje"></div>
   <div id="resultado"></div>
+
+  </div><!-- /#panel-crud -->
 
   <!-- supabaseClient.js crea "db" (sección 4.3): el cliente ya
        conectado a tu proyecto de Supabase. Lo vamos a usar en

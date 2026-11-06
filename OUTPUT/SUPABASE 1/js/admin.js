@@ -1,3 +1,135 @@
+// ===== ACCESO DE ADMINISTRADOR =====
+// Mismo patrón que cliente.html/cliente.js (registro/login contra
+// Supabase Auth), pero con un paso extra importante: aquí no basta con
+// "hay sesión" para mostrar el CRUD — hay que confirmar que esa sesión
+// SÍ corresponde a un administrador, buscando su fila en admin_practica
+// (la policy "ver_perfil" que configuramos permite esa lectura).
+
+async function registrarAdmin(nombre, correo, contrasena) {
+  const { data, error } = await db.auth.signUp({ email: correo, password: contrasena });
+
+  if (error) {
+    console.log('Error al registrar admin:', error);
+    return null;
+  }
+
+  // Igual que en cliente.js: el id del perfil tiene que ser el mismo
+  // uuid que Auth le acaba de asignar, para que la policy
+  // "auth.uid() = id" funcione más adelante.
+  const { data: admin, error: errorAdmin } = await db
+    .from('admin_practica')
+    .insert([{ id: data.user.id, nombre, correo }])
+    .select();
+
+  if (errorAdmin) {
+    console.log('Error al crear el perfil de administrador:', errorAdmin);
+    return null;
+  }
+
+  return admin[0];
+}
+
+// Revisa si el usuario con sesión activa tiene fila en admin_practica.
+// Si no existe ninguna fila (porque es un correo de cliente, o cualquier
+// otra cuenta de Supabase Auth que no se registró aquí), "admin" llega
+// null y el CRUD se mantiene oculto.
+async function buscarAdminPorId(id) {
+  const { data: admin, error } = await db
+    .from('admin_practica')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle(); // a diferencia de .single(), no da error si no hay fila — devuelve null
+
+  if (error) {
+    console.log('Error al verificar administrador:', error);
+    return null;
+  }
+
+  return admin;
+}
+
+async function mostrarEstadoSesionAdmin() {
+  const { data } = await db.auth.getUser();
+  const estado = document.getElementById('estado-sesion-admin');
+  const bloqueLogin = document.getElementById('bloque-login-admin');
+  const botonLogout = document.getElementById('btn-logout-admin');
+  const panelCrud = document.getElementById('panel-crud');
+
+  if (!data.user) {
+    estado.textContent = 'No has iniciado sesión.';
+    bloqueLogin.style.display = 'block';
+    botonLogout.style.display = 'none';
+    panelCrud.style.display = 'none';
+    return;
+  }
+
+  const admin = await buscarAdminPorId(data.user.id);
+
+  if (!admin) {
+    // Hay sesión de Supabase Auth, pero esa cuenta no está en
+    // admin_practica (ej. es una cuenta de cliente) — el CRUD sigue oculto.
+    estado.textContent = `Sesión iniciada como ${data.user.email}, pero esta cuenta no es de administrador.`;
+    bloqueLogin.style.display = 'none';
+    botonLogout.style.display = 'inline-block';
+    panelCrud.style.display = 'none';
+    return;
+  }
+
+  estado.textContent = `Administrador: ${admin.nombre} (${admin.correo})`;
+  bloqueLogin.style.display = 'none';
+  botonLogout.style.display = 'inline-block';
+  panelCrud.style.display = 'block';
+}
+
+document.getElementById('form-registro-admin').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const form = event.target;
+
+  const admin = await registrarAdmin(
+    document.getElementById('registro-admin-nombre').value.trim(),
+    document.getElementById('registro-admin-correo').value.trim(),
+    document.getElementById('registro-admin-password').value
+  );
+
+  if (admin) {
+    form.reset();
+    mostrarEstadoSesionAdmin();
+  } else {
+    document.getElementById('estado-sesion-admin').textContent =
+      'No se pudo crear la cuenta de administrador. Revisa la consola.';
+  }
+});
+
+document.getElementById('form-login-admin').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const form = event.target;
+
+  const { error } = await db.auth.signInWithPassword({
+    email: document.getElementById('login-admin-correo').value.trim(),
+    password: document.getElementById('login-admin-password').value,
+  });
+
+  if (error) {
+    console.log('Error al iniciar sesión:', error);
+    document.getElementById('estado-sesion-admin').textContent =
+      'No se pudo iniciar sesión. Revisa correo y contraseña.';
+    return;
+  }
+
+  form.reset();
+  mostrarEstadoSesionAdmin();
+});
+
+document.getElementById('btn-logout-admin').addEventListener('click', async () => {
+  await db.auth.signOut();
+  mostrarEstadoSesionAdmin();
+});
+
+// Al cargar la página, revisa si ya había sesión de administrador activa.
+mostrarEstadoSesionAdmin();
+
+// ===== FIN ACCESO DE ADMINISTRADOR =====
+
 // Copia de referencia/comparación de los datos que viven en Supabase
 // (tabla productos_practica) — esto NO es lo que usa la app para
 // mostrar las tarjetas; esa consulta real sigue abajo, con
