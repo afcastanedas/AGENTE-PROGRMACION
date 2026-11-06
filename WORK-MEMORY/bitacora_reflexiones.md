@@ -101,3 +101,9 @@ cuentas (`db.auth.signUp()` + inserción del perfil en la tabla `clientes practi
 funcionando el registro. Lo que sigue la próxima sesión: probar el formulario de inicio de
 sesión (`form-login`) y el botón de cerrar sesión (`btn-logout`), que todavía no tienen
 código conectado.
+
+## 2026-11-06
+
+Fuimos dejando listo para empezar con mi proyecto de ecommerce personal: acceso de
+administrador (`admin.html`) con login protegido por RLS, y una primera galería visual de
+productos (`galeria.html`) para el lado del cliente.
