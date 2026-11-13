@@ -51,6 +51,8 @@
       main {
         flex: 1;
         padding: 24px;
+      }
+      #vista-cuenta {
         max-width: 500px;
       }
       .vista {
@@ -59,6 +61,238 @@
       .vista.visible {
         display: block;
       }
+      #galeria-cliente {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+      }
+      .card-body {
+        padding: 12px;
+      }
+      .card-body h3 {
+        margin: 0 0 6px;
+        font-size: 1rem;
+      }
+      .card-body p {
+        margin: 4px 0;
+        font-size: 0.85rem;
+        color: #444;
+      }
+      .precio {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #3b5bdb;
+      }
+      .agotado {
+        color: #b00020;
+        font-weight: bold;
+      }
+
+      /* ===== Encabezado de la vista Productos + botón de carrito ===== */
+      .productos-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #btn-carrito {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #3b5bdb;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #btn-carrito:hover {
+        background: #2f49ad;
+      }
+      #contador-badge {
+        background: #fff;
+        color: #3b5bdb;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      /* ===== Botones +/− y "Agregar" dentro de cada tarjeta ===== */
+      .card-acciones {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px 14px;
+        border-top: 1px solid #eee;
+      }
+      .btn-restar, .btn-sumar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        background: #f4f4f7;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-restar:disabled, .btn-sumar:disabled, .btn-agregar:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .cantidad-display {
+        font-size: 0.9rem;
+        font-weight: 700;
+        min-width: 24px;
+        text-align: center;
+      }
+      .btn-agregar {
+        margin-left: auto;
+        background: #222;
+        color: #fff;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-agregar:hover:not(:disabled) {
+        background: #3b5bdb;
+      }
+
+      /* ===== Panel del carrito y overlay ===== */
+      #panel-carrito {
+        position: fixed;
+        top: 0;
+        right: -420px;
+        width: 380px;
+        max-width: 100%;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        transition: right 0.35s ease;
+      }
+      #panel-carrito.abierto {
+        right: 0;
+      }
+      .carrito-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #222;
+        color: #fff;
+      }
+      #btn-cerrar-carrito {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.4rem;
+        cursor: pointer;
+      }
+      #lista-carrito {
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .item-carrito {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        background: #f4f4f7;
+        border-radius: 8px;
+        padding: 10px;
+      }
+      .item-carrito img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .item-info {
+        flex: 1;
+      }
+      .item-info strong {
+        font-size: 0.85rem;
+        display: block;
+      }
+      .item-info span {
+        font-size: 0.78rem;
+        color: #777;
+      }
+      .item-qty {
+        font-weight: 700;
+        color: #3b5bdb;
+      }
+      .carrito-vacio {
+        text-align: center;
+        color: #777;
+        padding: 30px;
+      }
+      .carrito-footer {
+        padding: 16px 20px;
+        border-top: 1px solid #eee;
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      #total-valor {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #3b5bdb;
+      }
+      #btn-checkout {
+        width: 100%;
+        background: #4a7c59;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      #btn-checkout:hover {
+        background: #375f43;
+      }
+      #overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 150;
+      }
+      #overlay.activo {
+        display: block;
+      }
+
       form {
         display: flex;
         flex-direction: column;
@@ -96,9 +330,21 @@
     <aside>
       <h1>Mi cuenta</h1>
       <button type="button" class="nav-item activo" data-vista="cuenta">Mi cuenta</button>
+      <button type="button" class="nav-item" data-vista="productos">Productos</button>
     </aside>
 
     <main>
+      <section id="vista-productos" class="vista">
+        <div class="productos-header">
+          <h2>Productos</h2>
+          <button id="btn-carrito" type="button">
+            🛒 Carrito
+            <span id="contador-badge">0</span>
+          </button>
+        </div>
+        <div id="galeria-cliente"></div>
+      </section>
+
       <section id="vista-cuenta" class="vista visible">
         <h2>Mi cuenta</h2>
         <p id="estado-sesion">No has iniciado sesión.</p>
@@ -147,6 +393,25 @@
         </div>
       </section>
     </main>
+
+    <div id="overlay"></div>
+
+    <div id="panel-carrito">
+      <div class="carrito-header">
+        <h3>Tu Carrito</h3>
+        <button id="btn-cerrar-carrito">✕</button>
+      </div>
+      <div id="lista-carrito">
+        <p class="carrito-vacio">Tu carrito está vacío 🛒</p>
+      </div>
+      <div class="carrito-footer">
+        <div class="total-row">
+          <span class="total-label">Total</span>
+          <span class="total-valor" id="total-valor">$0</span>
+        </div>
+        <button id="btn-checkout">Proceder al pago →</button>
+      </div>
+    </div>
 
     <script src="js/supabaseClient.js"></script>
     <script src="js/cliente.js"></script>

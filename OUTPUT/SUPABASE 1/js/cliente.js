@@ -200,3 +200,177 @@ document.getElementById('btn-logout').addEventListener('click', async () => {
 // recargaste sin cerrar sesión) — antes esto vivía atrapado dentro del
 // listener de "form-registro" y nunca se ejecutaba al abrir la página.
 mostrarEstadoSesion();
+
+// ===== NAVEGACIÓN ENTRE SECCIONES (aside) =====
+// Igual que mostrarSeccion() en admin.html: solo una sección ".vista"
+// visible a la vez, y el botón de la aside correspondiente marcado
+// como activo.
+function mostrarSeccion(nombre) {
+  document.querySelectorAll('.vista').forEach((vista) => {
+    vista.classList.toggle('visible', vista.id === 'vista-' + nombre);
+  });
+  document.querySelectorAll('.nav-item').forEach((boton) => {
+    boton.classList.toggle('activo', boton.dataset.vista === nombre);
+  });
+}
+
+document.querySelectorAll('.nav-item').forEach((boton) => {
+  boton.addEventListener('click', () => {
+    mostrarSeccion(boton.dataset.vista);
+    if (boton.dataset.vista === 'productos') cargarProductosCliente();
+  });
+});
+
+// ===== GALERÍA DE PRODUCTOS CON CARRITO =====
+// Mismo patrón e interacción que galeria.js (grid + selector de
+// cantidad +/− + panel de carrito lateral), pero aquí "productos" no es
+// un array estático: se llena con la consulta real a Supabase.
+let productosCliente = [];
+const carritoCliente = {};
+const cantidadesSeleccionadas = {};
+
+// Consulta en vivo a Supabase — igual patrón que btn-traer en admin.js,
+// pero sin los botones de Editar/Eliminar (esto es la vista del cliente,
+// no la de administración).
+async function cargarProductosCliente() {
+  const contenedor = document.getElementById('galeria-cliente');
+  contenedor.innerHTML = '<p>Cargando productos...</p>';
+
+  const { data, error } = await db.from('productos_practica').select('*');
+
+  if (error) {
+    contenedor.innerHTML = `<p>Error al cargar productos: ${error.message}</p>`;
+    return;
+  }
+
+  productosCliente = data;
+  data.forEach(p => { cantidadesSeleccionadas[p.id] = cantidadesSeleccionadas[p.id] || 1; });
+
+  renderizarGaleriaCliente();
+}
+
+function renderizarGaleriaCliente() {
+  const contenedor = document.getElementById('galeria-cliente');
+
+  contenedor.innerHTML = productosCliente.map(producto => {
+    const { id, nombre, descripcion, precio, unidades, disponible, imagen } = producto;
+    const deshabilitado = disponible ? '' : 'disabled';
+
+    return `
+      <div class="card">
+        <img src="${imagen}" alt="${nombre}">
+        <div class="card-body">
+          <h3>${nombre}</h3>
+          <p>${descripcion}</p>
+          <p class="precio">$${precio.toLocaleString('es-CO')}</p>
+          <p>${disponible ? 'Unidades: ' + unidades : '<span class="agotado">Agotado</span>'}</p>
+        </div>
+        <div class="card-acciones">
+          <button class="btn-restar" data-id="${id}" ${deshabilitado}>−</button>
+          <span class="cantidad-display" id="cant-${id}">${cantidadesSeleccionadas[id]}</span>
+          <button class="btn-sumar" data-id="${id}" ${deshabilitado}>+</button>
+          <button class="btn-agregar" data-id="${id}" ${deshabilitado}>Agregar</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  asignarEventosGaleriaCliente();
+}
+
+function asignarEventosGaleriaCliente() {
+  document.querySelectorAll('.btn-restar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      if (cantidadesSeleccionadas[id] > 1) {
+        cantidadesSeleccionadas[id]--;
+        document.getElementById(`cant-${id}`).textContent = cantidadesSeleccionadas[id];
+      }
+    });
+  });
+
+  document.querySelectorAll('.btn-sumar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      cantidadesSeleccionadas[id]++;
+      document.getElementById(`cant-${id}`).textContent = cantidadesSeleccionadas[id];
+    });
+  });
+
+  document.querySelectorAll('.btn-agregar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      const cantidad = cantidadesSeleccionadas[id];
+
+      carritoCliente[id] = (carritoCliente[id] || 0) + cantidad;
+
+      cantidadesSeleccionadas[id] = 1;
+      document.getElementById(`cant-${id}`).textContent = 1;
+
+      btn.textContent = '✓ Agregado';
+      btn.style.background = '#4a7c59';
+      setTimeout(() => {
+        btn.textContent = 'Agregar';
+        btn.style.background = '';
+      }, 1200);
+
+      actualizarCarritoCliente();
+    });
+  });
+}
+
+function actualizarCarritoCliente() {
+  const lista = document.getElementById('lista-carrito');
+  const badge = document.getElementById('contador-badge');
+  const totalValor = document.getElementById('total-valor');
+
+  let totalItems = 0;
+  let totalPrecio = 0;
+
+  const idsEnCarrito = Object.keys(carritoCliente).filter(id => carritoCliente[id] > 0);
+
+  if (idsEnCarrito.length === 0) {
+    lista.innerHTML = '<p class="carrito-vacio">Tu carrito está vacío 🛒</p>';
+    badge.textContent = '0';
+    totalValor.textContent = '$0';
+    return;
+  }
+
+  lista.innerHTML = idsEnCarrito.map(id => {
+    const producto = productosCliente.find(p => p.id === parseInt(id));
+    const qty = carritoCliente[id];
+    totalItems += qty;
+    totalPrecio += producto.precio * qty;
+
+    return `
+      <div class="item-carrito">
+        <img src="${producto.imagen}" alt="${producto.nombre}">
+        <div class="item-info">
+          <strong>${producto.nombre}</strong>
+          <span>$${producto.precio.toLocaleString('es-CO')} × ${qty}</span>
+        </div>
+        <span class="item-qty">$${(producto.precio * qty).toLocaleString('es-CO')}</span>
+      </div>
+    `;
+  }).join('');
+
+  badge.textContent = totalItems;
+  totalValor.textContent = '$' + totalPrecio.toLocaleString('es-CO');
+}
+
+// Abrir/cerrar el panel del carrito (mismo patrón que galeria.js).
+const panelCarritoCliente = document.getElementById('panel-carrito');
+const overlayCliente = document.getElementById('overlay');
+
+document.getElementById('btn-carrito').addEventListener('click', () => {
+  panelCarritoCliente.classList.add('abierto');
+  overlayCliente.classList.add('activo');
+});
+
+function cerrarCarritoCliente() {
+  panelCarritoCliente.classList.remove('abierto');
+  overlayCliente.classList.remove('activo');
+}
+
+document.getElementById('btn-cerrar-carrito').addEventListener('click', cerrarCarritoCliente);
+overlayCliente.addEventListener('click', cerrarCarritoCliente);
